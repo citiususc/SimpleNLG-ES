@@ -3,16 +3,15 @@
  */
 package simplenlg.xmlrealiser;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-
 import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGElement;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.lexicon.NIHDBLexicon;
-import simplenlg.lexicon.XMLLexicon;
 import simplenlg.realiser.english.Realiser;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
 /**
  * The Class XMLRealiser.
@@ -28,54 +27,12 @@ public class XMLRealiser {
 	/** The lexicon. */
 	static Lexicon lexicon = null;
 
-	/** The lexicon type. */
-	static LexiconType lexiconType = null;
-
 	/** The record. */
 	static Recording record = null;
 
 	/**
-	 * The Enum OpCode.
-	 * 
-	 */
-	/*
-	 * The arg[0] is the op code. op codes are "realise", "setLexicon",
-	 * "startRecording", "stopRecording" Usage is: realize <xml string> returns
-	 * realised string. setLexicon (XML | NIHDB) <path to lexicon> returns "OK"
-	 * or not. startRecording <path to recording directory> returns "OK" or not.
-	 * stopRecording returns name of file which contains recording.
-	 * Recordings can be used as regression tests. See simplenlg/test/xmlrealiser/Tester.java
-	 */
-	public enum OpCode {
-
-		/** The noop. */
-		noop,
-		/** The realise. */
-		realise,
-		/** The set lexicon. */
-		setLexicon,
-		/** The start recording. */
-		startRecording,
-		/** The stop recording. */
-		stopRecording
-	}
-
-	/**
-	 * The Enum LexiconType.
-	 */
-	public enum LexiconType {
-
-		/** The DEFAULT. */
-		DEFAULT,
-		/** The XML. */
-		XML,
-		/** The NIHDB. */
-		NIHDB
-	}
-
-	/**
 	 * The main method to perform realisation.
-	 * 
+	 *
 	 * @param args
 	 *            the args
 	 * @return the string
@@ -122,7 +79,15 @@ public class XMLRealiser {
 				throw new XMLRealiserException("invalid args");
 			}
 
-			setLexicon(lexType, lexFile);
+			Lexicon newLexicon;
+			if (lexType == LexiconType.XML) {
+				newLexicon = new simplenlg.lexicon.english.XMLLexicon(lexFile);
+			} else if (lexType == LexiconType.NIHDB) {
+				newLexicon = new NIHDBLexicon(lexFile);
+			} else {
+				newLexicon = Lexicon.getDefaultLexicon();
+			}
+			setLexicon(newLexicon);
 			break;
 		}
 		case startRecording: {
@@ -158,37 +123,26 @@ public class XMLRealiser {
 
 	/**
 	 * Sets the lexicon.
-	 * 
-	 * @param lexType
-	 *            the lex type
-	 * @param lexFile
-	 *            the lex file
+	 *
+	 * @param newLexicon
+	 *            the lexicon
 	 */
-	public static void setLexicon(LexiconType lexType, String lexFile) {
-		if (lexiconType != null && lexicon != null && lexType == lexiconType) {
+	public static void setLexicon(Lexicon newLexicon) {
+		if (lexicon != null && lexicon.equals(newLexicon)) {
 			return; // done already
 		}
 
 		if (lexicon != null) {
 			lexicon.close();
 			lexicon = null;
-			lexiconType = null;
 		}
 
-		if (lexType == LexiconType.XML) {
-			lexicon = new XMLLexicon(lexFile);
-		} else if (lexType == LexiconType.NIHDB) {
-			lexicon = new NIHDBLexicon(lexFile);
-		} else if (lexType == LexiconType.DEFAULT) {
-			lexicon = Lexicon.getDefaultLexicon();
-		}
-
-		lexiconType = lexType;
+		lexicon = newLexicon;
 	}
 
 	/**
 	 * Gets the request.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the request
@@ -209,7 +163,7 @@ public class XMLRealiser {
 
 	/**
 	 * Gets the recording.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the recording
@@ -231,7 +185,7 @@ public class XMLRealiser {
 
 	/**
 	 * Realise.
-	 * 
+	 *
 	 * @param wt
 	 *            the wt
 	 * @return the string
@@ -268,7 +222,7 @@ public class XMLRealiser {
 
 	/**
 	 * Start recording.
-	 * 
+	 *
 	 * @param path
 	 *            the path
 	 * @throws XMLRealiserException
@@ -292,7 +246,7 @@ public class XMLRealiser {
 
 	/**
 	 * Stop recording.
-	 * 
+	 *
 	 * @return the string
 	 * @throws XMLRealiserException
 	 *             the xML realiser exception
@@ -309,5 +263,59 @@ public class XMLRealiser {
 		}
 
 		return file;
+	}
+
+	/**
+	 * The Enum OpCode.
+	 */
+	/*
+	 * The arg[0] is the op code. op codes are "realise", "setLexicon",
+	 * "startRecording", "stopRecording" Usage is: realize <xml string> returns
+	 * realised string. setLexicon (XML | NIHDB) <path to lexicon> returns "OK"
+	 * or not. startRecording <path to recording directory> returns "OK" or not.
+	 * stopRecording returns name of file which contains recording.
+	 * Recordings can be used as regression tests. See simplenlg/test/xmlrealiser/Tester.java
+	 */
+	public enum OpCode {
+
+		/**
+		 * The noop.
+		 */
+		noop,
+		/**
+		 * The realise.
+		 */
+		realise,
+		/**
+		 * The set lexicon.
+		 */
+		setLexicon,
+		/**
+		 * The start recording.
+		 */
+		startRecording,
+		/**
+		 * The stop recording.
+		 */
+		stopRecording
+	}
+
+	/**
+	 * The Enum LexiconType.
+	 */
+	public enum LexiconType {
+
+		/**
+		 * The DEFAULT.
+		 */
+		DEFAULT,
+		/**
+		 * The XML.
+		 */
+		XML,
+		/**
+		 * The NIHDB.
+		 */
+		NIHDB
 	}
 }

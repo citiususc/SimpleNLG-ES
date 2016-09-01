@@ -18,21 +18,18 @@
  */
 package simplenlg.lexicon.english;
 
-import java.io.File;
-import java.io.FileReader;
-import java.util.Properties;
-
 import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import simplenlg.features.LexicalFeature;
 import simplenlg.framework.WordElement;
 import simplenlg.lexicon.MultipleLexicon;
 import simplenlg.lexicon.NIHDBLexicon;
-import simplenlg.lexicon.XMLLexicon;
+
+import java.io.File;
+import java.io.FileReader;
+import java.util.Properties;
 
 /**
  * @author Dave Westwater, Data2Text Ltd
@@ -57,14 +54,14 @@ public class MultipleLexiconTest {
 
             String xmlFile = prop.getProperty("XML_FILENAME");
             String dbFile = prop.getProperty("DB_FILENAME");
-            
-            this.lexicon = new MultipleLexicon(new XMLLexicon(xmlFile),
-                                               new NIHDBLexicon(dbFile));
-        } catch (Exception e) {
+
+			this.lexicon = new MultipleLexicon(new simplenlg.lexicon.english.XMLLexicon(xmlFile),
+					new NIHDBLexicon(dbFile));
+		} catch (Exception e) {
             e.printStackTrace();
-            this.lexicon = new MultipleLexicon(new XMLLexicon(XML_FILENAME),
-                                               new NIHDBLexicon(DB_FILENAME));
-        }
+			this.lexicon = new MultipleLexicon(new simplenlg.lexicon.english.XMLLexicon(XML_FILENAME),
+					new NIHDBLexicon(DB_FILENAME));
+		}
 	}
 
 	@After

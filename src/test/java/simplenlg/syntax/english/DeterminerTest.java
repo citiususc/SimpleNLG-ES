@@ -26,7 +26,6 @@ import org.junit.Test;
 import simplenlg.framework.NLGFactory;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.lexicon.NIHDBLexicon;
-import simplenlg.lexicon.XMLLexicon;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.realiser.english.Realiser;
@@ -39,14 +38,13 @@ import simplenlg.realiser.english.Realiser;
  */
 public class DeterminerTest {
 
-	/** The realiser. */
-	private Realiser realiser;
-
-	private NLGFactory phraseFactory;
-
+    private final String DB_FILENAME = "src/test/resources/NIHLexicon/lexAccess2011.data";
+    /**
+     * The realiser.
+     */
+    private Realiser realiser;
+    private NLGFactory phraseFactory;
 	private Lexicon lexicon;
-
-	private final String DB_FILENAME = "src/test/resources/NIHLexicon/lexAccess2011.data";
 
 	/**
 	 * Set up the variables we'll need for this simplenlg.test to run (Called
@@ -54,7 +52,7 @@ public class DeterminerTest {
 	 */
 	@Before
 	public void setUp() {
-		this.lexicon = new XMLLexicon();  // built in lexicon
+        this.lexicon = new simplenlg.lexicon.english.XMLLexicon();  // built in lexicon
 
 		this.phraseFactory = new NLGFactory(this.lexicon);
 		this.realiser = new Realiser(this.lexicon);

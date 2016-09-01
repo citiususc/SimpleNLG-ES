@@ -18,30 +18,23 @@
  */
 package simplenlg.lexicon.english;
 
-import java.util.List;
-import java.util.Properties;
-
 import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import simplenlg.features.Feature;
-import simplenlg.features.Inflection;
-import simplenlg.features.LexicalFeature;
-import simplenlg.features.NumberAgreement;
-import simplenlg.features.Tense;
+import simplenlg.features.*;
 import simplenlg.framework.InflectedWordElement;
 import simplenlg.framework.LexicalCategory;
 import simplenlg.framework.NLGFactory;
 import simplenlg.framework.WordElement;
-import simplenlg.lexicon.NIHDBLexicon;
-import simplenlg.lexicon.XMLLexicon;
 import simplenlg.lexicon.Lexicon;
+import simplenlg.lexicon.NIHDBLexicon;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.realiser.english.Realiser;
+
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Tests on the use of spelling and inflectional variants, using the
@@ -52,17 +45,14 @@ import simplenlg.realiser.english.Realiser;
  */
 public class LexicalVariantsTest {
 
-	// lexicon object -- an instance of Lexicon
-	Lexicon lexicon = null;
-
-	// factory for phrases
+    // DB location -- change this to point to the lex access data dir
+    static String DB_FILENAME = "src/test/resources/NIHLexicon/lexAccess2011.data";
+    // lexicon object -- an instance of Lexicon
+    Lexicon lexicon = null;
+    // factory for phrases
 	NLGFactory factory;
-
 	// realiser
 	Realiser realiser;
-
-	// DB location -- change this to point to the lex access data dir
-	static String DB_FILENAME = "src/test/resources/NIHLexicon/lexAccess2011.data";
 
 	@Before
 	/*
@@ -86,7 +76,7 @@ public class LexicalVariantsTest {
                 lexicon = new NIHDBLexicon(prop.getProperty("DB_FILENAME"));
             } else {
                 // XML lexicon
-                lexicon = new XMLLexicon(prop.getProperty("XML_FILENAME"));
+                lexicon = new simplenlg.lexicon.english.XMLLexicon(prop.getProperty("XML_FILENAME"));
             }
         } catch (Exception e) {
             this.lexicon = new NIHDBLexicon(DB_FILENAME);

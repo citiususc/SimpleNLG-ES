@@ -18,10 +18,10 @@
  */
 package simplenlg.aggregation;
 
-import java.util.List;
-
 import simplenlg.framework.NLGElement;
 import simplenlg.framework.PhraseCategory;
+
+import java.util.List;
 
 /**
  * <P>
@@ -109,8 +109,8 @@ public class ForwardConjunctionReductionRule extends AggregationRule {
 			}
 		}
 
-		return success ? this.factory.createCoordinatedPhrase(previous, next)
-				: null;
-	}
+        return success ? getFactory(previous, next).createCoordinatedPhrase(previous, next)
+                : null;
+    }
 
 }

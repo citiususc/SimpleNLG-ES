@@ -18,10 +18,10 @@
  */
 package simplenlg.aggregation;
 
-import java.util.List;
-
 import simplenlg.framework.NLGElement;
 import simplenlg.framework.PhraseCategory;
+
+import java.util.List;
 
 /**
  * Implementation of the backward conjunction reduction rule. Given two
@@ -96,7 +96,7 @@ public class BackwardConjunctionReductionRule extends AggregationRule {
 			}
 		}
 
-		return success ? this.factory.createCoordinatedPhrase(previous, next)
+		return success ? getFactory(previous, next).createCoordinatedPhrase(previous, next)
 				: null;
 	}
 

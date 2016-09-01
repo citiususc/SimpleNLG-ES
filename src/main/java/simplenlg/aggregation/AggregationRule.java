@@ -18,12 +18,12 @@
  */
 package simplenlg.aggregation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import simplenlg.framework.CoordinatedPhraseElement;
 import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents an aggregation rule. All such rules need to implement
@@ -31,133 +31,137 @@ import simplenlg.framework.NLGFactory;
  * {@link simplenlg.framework.NLGElement}s and perform some form of aggregation
  * on them, returning an <code>SPhraseSpec</code> as a result, or
  * <code>null</code> if the operation fails.
- * 
+ *
  * @author Albert Gatt, University of Malta and University of Aberdeen
- * 
  */
 public abstract class AggregationRule {
 
-	protected NLGFactory factory;
+    protected NLGFactory factory;
 
-	/**
-	 * Creates a new instance of AggregationRule
-	 */
-	public AggregationRule() {
-		this.factory = new NLGFactory();
-	}
+    /**
+     * Creates a new instance of AggregationRule
+     */
+    public AggregationRule() {
+        this.factory = new NLGFactory();
+    }
 
-	/**
-	 * Set the factory that the rule should use to create phrases.
-	 * 
-	 * @param factory
-	 *            the factory
-	 */
-	public void setFactory(NLGFactory factory) {
-		this.factory = factory;
-	}
+    /**
+     * @return the factory being used by this rule to create phrases
+     */
+    public NLGFactory getFactory() {
+        return this.factory;
+    }
 
-	/**
-	 * 
-	 * @return the factory being used by this rule to create phrases
-	 */
-	public NLGFactory getFactory() {
-		return this.factory;
-	}
+    /**
+     * Set the factory that the rule should use to create phrases.
+     *
+     * @param factory the factory
+     */
+    public void setFactory(NLGFactory factory) {
+        this.factory = factory;
+    }
 
-	/**
-	 * Performs aggregation on an arbitrary number of elements in a list. This
-	 * method calls {{@link #apply(NLGElement, NLGElement)} on all pairs of
-	 * elements in the list, recursively aggregating whenever it can.
-	 * 
-	 * @param phrases
-	 *            the sentences
-	 * @return a list containing the phrases, such that, for any two phrases s1
-	 *         and s2, if {@link #apply(NLGElement, NLGElement)} succeeds on s1
-	 *         and s2, the list contains the result; otherwise, the list
-	 *         contains s1 and s2.
-	 */
-	public List<NLGElement> apply(List<NLGElement> phrases) {
-		List<NLGElement> results  = new ArrayList<NLGElement>();;
-		
-		if (phrases.size() >= 2) {
-			List<NLGElement> removed = new ArrayList<NLGElement>();
+    /**
+     * Performs aggregation on an arbitrary number of elements in a list. This
+     * method calls {{@link #apply(NLGElement, NLGElement)} on all pairs of
+     * elements in the list, recursively aggregating whenever it can.
+     *
+     * @param phrases the sentences
+     * @return a list containing the phrases, such that, for any two phrases s1
+     * and s2, if {@link #apply(NLGElement, NLGElement)} succeeds on s1
+     * and s2, the list contains the result; otherwise, the list
+     * contains s1 and s2.
+     */
+    public List<NLGElement> apply(List<NLGElement> phrases) {
+        List<NLGElement> results = new ArrayList<NLGElement>();
 
-			for (int i = 0; i < phrases.size(); i++) {
-				NLGElement current = phrases.get(i);
+        if (phrases.size() >= 2) {
+            List<NLGElement> removed = new ArrayList<NLGElement>();
 
-				if (removed.contains(current)) {
-					continue;
-				}
+            for (int i = 0; i < phrases.size(); i++) {
+                NLGElement current = phrases.get(i);
 
-				for (int j = i + 1; j < phrases.size(); j++) {
-					NLGElement next = phrases.get(j);
-					NLGElement aggregated = apply(current, next);
+                if (removed.contains(current)) {
+                    continue;
+                }
 
-					if (aggregated != null) {
-						current = aggregated;
-						removed.add(next);
-					}
-				}
+                for (int j = i + 1; j < phrases.size(); j++) {
+                    NLGElement next = phrases.get(j);
+                    NLGElement aggregated = apply(current, next);
 
-				results.add(current);
-			}
+                    if (aggregated != null) {
+                        current = aggregated;
+                        removed.add(next);
+                    }
+                }
 
-		} else if(phrases.size() == 1) {
-			results.add(apply(phrases.get(0)));
-		}
+                results.add(current);
+            }
 
-		return results;
-	}
+        } else if (phrases.size() == 1) {
+            results.add(apply(phrases.get(0)));
+        }
 
-	/**
-	 * Perform aggregation on a single phrase. This method only works on a
-	 * {@link simplenlg.framework.CoordinatedPhraseElement}, in which case it
-	 * calls {@link #apply(List)} on the children of the coordinated phrase,
-	 * returning a coordinated phrase whose children are the result.
-	 * 
-	 * @param phrase
-	 * @return aggregated result
-	 */
-	public NLGElement apply(NLGElement phrase) {
-		NLGElement result = null;
+        return results;
+    }
 
-		if (phrase instanceof CoordinatedPhraseElement) {			
-			List<NLGElement> children = ((CoordinatedPhraseElement) phrase).getChildren();
-			List<NLGElement> aggregated = apply(children);
+    /**
+     * Perform aggregation on a single phrase. This method only works on a
+     * {@link simplenlg.framework.CoordinatedPhraseElement}, in which case it
+     * calls {@link #apply(List)} on the children of the coordinated phrase,
+     * returning a coordinated phrase whose children are the result.
+     *
+     * @param phrase
+     * @return aggregated result
+     */
+    public NLGElement apply(NLGElement phrase) {
+        NLGElement result = null;
 
-			if(aggregated.size() == 1) {
-				result = aggregated.get(0);
-			
-			} else {
-				result = this.factory.createCoordinatedPhrase();
+        if (phrase instanceof CoordinatedPhraseElement) {
+            List<NLGElement> children = ((CoordinatedPhraseElement) phrase).getChildren();
+            List<NLGElement> aggregated = apply(children);
 
-				for (NLGElement agg : aggregated) {
-					((CoordinatedPhraseElement) result).addCoordinate(agg);
-				}				
-			}			
-		}
+            if (aggregated.size() == 1) {
+                result = aggregated.get(0);
 
-		
-		if(result != null) {
-			for(String feature: phrase.getAllFeatureNames()) {
-				result.setFeature(feature, phrase.getFeature(feature));
-			}
-		}
-		
-		return result;
-	}
+            } else {
+                result = this.factory.createCoordinatedPhrase();
 
-	/**
-	 * Performs aggregation on a pair of sentences. This is the only method that
-	 * extensions of <code>AggregationRule</code> need to implement.
-	 * 
-	 * @param sentence1
-	 *            the first sentence
-	 * @param sentence2
-	 *            the second sentence
-	 * @return an aggregated sentence, if the method succeeds, <code>null</code>
-	 *         otherwise
-	 */
-	public abstract NLGElement apply(NLGElement sentence1, NLGElement sentence2);
+                for (NLGElement agg : aggregated) {
+                    ((CoordinatedPhraseElement) result).addCoordinate(agg);
+                }
+            }
+        }
+
+
+        if (result != null) {
+            for (String feature : phrase.getAllFeatureNames()) {
+                result.setFeature(feature, phrase.getFeature(feature));
+            }
+        }
+
+        return result;
+    }
+
+    protected NLGFactory getFactory(NLGElement previous, NLGElement next) {
+        if (previous.getFactory() != null) {
+            return previous.getFactory();
+        } else if (next.getFactory() != null) {
+            return next.getFactory();
+        } else {
+            return this.factory;
+        }
+    }
+
+    /**
+     * Performs aggregation on a pair of sentences. This is the only method that
+     * extensions of <code>AggregationRule</code> need to implement.
+     *
+     * @param sentence1 the first sentence
+     * @param sentence2 the second sentence
+     * @return an aggregated sentence, if the method succeeds, <code>null</code>
+     * otherwise
+     */
+    public abstract NLGElement apply(NLGElement sentence1, NLGElement sentence2);
 
 }

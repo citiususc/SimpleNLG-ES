@@ -19,22 +19,15 @@
 
 package simplenlg.phrasespec;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import simplenlg.features.ClauseStatus;
 import simplenlg.features.Feature;
 import simplenlg.features.InternalFeature;
 import simplenlg.features.LexicalFeature;
-import simplenlg.framework.CoordinatedPhraseElement;
-import simplenlg.framework.InflectedWordElement;
-import simplenlg.framework.LexicalCategory;
-import simplenlg.framework.NLGElement;
-import simplenlg.framework.NLGFactory;
-import simplenlg.framework.PhraseCategory;
-import simplenlg.framework.PhraseElement;
-import simplenlg.framework.WordElement;
+import simplenlg.framework.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -114,8 +107,7 @@ public class SPhraseSpec extends PhraseElement {
 		setFeature(InternalFeature.CLAUSE_STATUS, ClauseStatus.MATRIX);
 		setFeature(Feature.SUPRESSED_COMPLEMENTISER, false);
 		setFeature(LexicalFeature.EXPLETIVE_SUBJECT, false);
-		setFeature(Feature.COMPLEMENTISER, phraseFactory.createWord(
-				"that", LexicalCategory.COMPLEMENTISER)); //$NON-NLS-1$
+        setFeature(Feature.COMPLEMENTISER, phraseFactory.getLexicon().getDefaultComplementiser()); //$NON-NLS-1$
 
 	}
 
@@ -237,11 +229,27 @@ public class SPhraseSpec extends PhraseElement {
 	}
 
 	/**
-	 * Set the verb of a clause
-	 * 
-	 * @param verb
-	 */
-	public void setVerb(Object verb) {
+     * Returns the verb of a clause
+     *
+     * @return verb of clause
+     */
+    public NLGElement getVerb() {
+
+        // WARNING - I don't understand verb phrase, so this may not work!!
+        PhraseElement verbPhrase = (PhraseElement) getFeatureAsElement(InternalFeature.VERB_PHRASE);
+        if (verbPhrase != null || verbPhrase instanceof VPPhraseSpec)
+            return verbPhrase.getHead();
+        else
+            // return null if VP is coordinated phrase
+            return null;
+    }
+
+    /**
+     * Set the verb of a clause
+     *
+     * @param verb
+     */
+    public void setVerb(Object verb) {
 		// get verb phrase element (create if necessary)
 		NLGElement verbPhraseElement = getVerbPhrase();
 
@@ -251,13 +259,13 @@ public class SPhraseSpec extends PhraseElement {
 			((VPPhraseSpec) verbPhraseElement).setVerb(verb);
 
 		/*
-		 * // WARNING - I don't understand verb phrase, so this may not work!!
+         * // WARNING - I don't understand verb phrase, so this may not work!!
 		 * NLGElement verbElement = getFactory().createWord(verb,
 		 * LexicalCategory.VERB);
-		 * 
+		 *
 		 * // get verb phrase element (create if necessary) NLGElement
 		 * verbPhraseElement = getVerbPhrase();
-		 * 
+		 *
 		 * // set head of VP to verb (if this is VPPhraseSpec, and not a coord)
 		 * if (verbPhraseElement != null && verbPhraseElement instanceof
 		 * VPPhraseSpec) ((VPPhraseSpec)
@@ -265,27 +273,23 @@ public class SPhraseSpec extends PhraseElement {
 		 */}
 
 	/**
-	 * Returns the verb of a clause
-	 * 
-	 * @return verb of clause
-	 */
-	public NLGElement getVerb() {
-
-		// WARNING - I don't understand verb phrase, so this may not work!!
-		PhraseElement verbPhrase = (PhraseElement) getFeatureAsElement(InternalFeature.VERB_PHRASE);
-		if (verbPhrase != null || verbPhrase instanceof VPPhraseSpec)
-			return verbPhrase.getHead();
-		else
-			// return null if VP is coordinated phrase
-			return null;
-	}
+     * Returns the subject of a clause (assumes there is only one)
+     *
+     * @return subject of clause (assume only one)
+     */
+    public NLGElement getSubject() {
+        List<NLGElement> subjects = getFeatureAsElementList(InternalFeature.SUBJECTS);
+        if (subjects == null || subjects.isEmpty())
+            return null;
+        return subjects.get(0);
+    }
 
 	/**
 	 * Sets the subject of a clause (assumes this is the only subject)
-	 * 
-	 * @param subject
-	 */
-	public void setSubject(Object subject) {
+     *
+     * @param subject
+     */
+    public void setSubject(Object subject) {
 		NLGElement subjectPhrase;
 		if (subject instanceof PhraseElement
 				|| subject instanceof CoordinatedPhraseElement)
@@ -298,24 +302,26 @@ public class SPhraseSpec extends PhraseElement {
 	}
 
 	/**
-	 * Returns the subject of a clause (assumes there is only one)
-	 * 
-	 * @return subject of clause (assume only one)
-	 */
-	public NLGElement getSubject() {
-		List<NLGElement> subjects = getFeatureAsElementList(InternalFeature.SUBJECTS);
-		if (subjects == null || subjects.isEmpty())
-			return null;
-		return subjects.get(0);
-	}
+     * Returns the direct object of a clause (assumes there is only one)
+     *
+     * @return subject of clause (assume only one)
+     */
+    public NLGElement getObject() {
+        PhraseElement verbPhrase = (PhraseElement) getFeatureAsElement(InternalFeature.VERB_PHRASE);
+        if (verbPhrase != null || verbPhrase instanceof VPPhraseSpec)
+            return ((VPPhraseSpec) verbPhrase).getObject();
+        else
+            // return null if VP is coordinated phrase
+            return null;
+    }
 
 	/**
 	 * Sets the direct object of a clause (assumes this is the only direct
 	 * object)
-	 * 
-	 * @param object
-	 */
-	public void setObject(Object object) {
+     *
+     * @param object
+     */
+    public void setObject(Object object) {
 
 		// get verb phrase element (create if necessary)
 		NLGElement verbPhraseElement = getVerbPhrase();
@@ -327,26 +333,26 @@ public class SPhraseSpec extends PhraseElement {
 	}
 
 	/**
-	 * Returns the direct object of a clause (assumes there is only one)
-	 * 
-	 * @return subject of clause (assume only one)
-	 */
-	public NLGElement getObject() {
-		PhraseElement verbPhrase = (PhraseElement) getFeatureAsElement(InternalFeature.VERB_PHRASE);
-		if (verbPhrase != null || verbPhrase instanceof VPPhraseSpec)
-			return ((VPPhraseSpec) verbPhrase).getObject();
-		else
-			// return null if VP is coordinated phrase
-			return null;
+     * Returns the indirect object of a clause (assumes there is only one)
+     *
+     * @return subject of clause (assume only one)
+     */
+    public NLGElement getIndirectObject() {
+        PhraseElement verbPhrase = (PhraseElement) getFeatureAsElement(InternalFeature.VERB_PHRASE);
+        if (verbPhrase != null || verbPhrase instanceof VPPhraseSpec)
+            return ((VPPhraseSpec) verbPhrase).getIndirectObject();
+        else
+            // return null if VP is coordinated phrase
+            return null;
 	}
 
 	/**
 	 * Set the indirect object of a clause (assumes this is the only direct
 	 * indirect object)
-	 * 
-	 * @param indirectObject
-	 */
-	public void setIndirectObject(Object indirectObject) {
+     *
+     * @param indirectObject
+     */
+    public void setIndirectObject(Object indirectObject) {
 
 		// get verb phrase element (create if necessary)
 		NLGElement verbPhraseElement = getVerbPhrase();
@@ -356,20 +362,6 @@ public class SPhraseSpec extends PhraseElement {
 				&& verbPhraseElement instanceof VPPhraseSpec)
 			((VPPhraseSpec) verbPhraseElement)
 					.setIndirectObject(indirectObject);
-	}
-
-	/**
-	 * Returns the indirect object of a clause (assumes there is only one)
-	 * 
-	 * @return subject of clause (assume only one)
-	 */
-	public NLGElement getIndirectObject() {
-		PhraseElement verbPhrase = (PhraseElement) getFeatureAsElement(InternalFeature.VERB_PHRASE);
-		if (verbPhrase != null || verbPhrase instanceof VPPhraseSpec)
-			return ((VPPhraseSpec) verbPhrase).getIndirectObject();
-		else
-			// return null if VP is coordinated phrase
-			return null;
 	}
 
 	// note that addFrontModifier, addPostModifier, addPreModifier are inherited

@@ -26,31 +26,35 @@ package simplenlg.features;
  * recorded in the {@code Feature.PERSON} feature and applies to clauses,
  * coordinated phrases, noun phrases and verb phrases.
  * </p>
- * 
+ *
  * @author A. Gatt, D. Westwater, University of Aberdeen.
  * @version 4.0
- * 
  */
 
 public enum Person {
 
-	/**
-	 * The enumeration to show that the narration is written in the first
-	 * person. First person narrative uses the personal pronouns of <em>I</em>
-	 * and <em>we</em>.
-	 */
-	FIRST, 
+    /**
+     * The enumeration to show that the narration is written in the first
+     * person. First person narrative uses the personal pronouns of <em>I</em>
+     * and <em>we</em>.
+     */
+    FIRST,
 
-	/**
-	 * The enumeration to show that the narration is written in the second
-	 * person. Second person narrative uses the personal pronoun of <em>you</em>.
-	 */
-	SECOND, 
+    /**
+     * The enumeration to show that the narration is written in the second
+     * person. Second person narrative uses the personal pronoun of <em>you</em>.
+     */
+    SECOND,
 
-	/**
-	 * The enumeration to show that the narration is written in the third
-	 * person. Third person narrative uses the personal pronouns of <em>he</em>, 
-	 * <em>her</em> and <em>they</em>.
-	 */
-	THIRD;
+    /**
+     * The enumeration to show that the narration is written in the third
+     * person. Third person narrative uses the personal pronouns of <em>he</em>,
+     * <em>her</em> and <em>they</em>.
+     */
+    THIRD,
+
+    /**
+     * The enumeration to show that the narration is impersonal.
+     */
+    NONE
 }

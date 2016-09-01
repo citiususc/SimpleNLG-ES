@@ -19,11 +19,9 @@
 package simplenlg.lexicon.english;
 
 import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import simplenlg.features.Feature;
 import simplenlg.features.NumberAgreement;
 import simplenlg.features.Tense;
@@ -52,10 +50,10 @@ public class XMLLexiconTest {
 		long startTime = System.currentTimeMillis();
 		//this.lexicon = new XMLLexicon(XML_FILENAME); // omit, use default
 														// lexicon instead
-		this.lexicon = new XMLLexicon();
-		long stopTime = System.currentTimeMillis();
-	
-		System.out.format("Loading XML lexicon took %d ms%n",
+        this.lexicon = new simplenlg.lexicon.english.XMLLexicon();
+        long stopTime = System.currentTimeMillis();
+
+        System.out.format("Loading XML lexicon took %d ms%n",
                           stopTime - startTime);
 
 	}

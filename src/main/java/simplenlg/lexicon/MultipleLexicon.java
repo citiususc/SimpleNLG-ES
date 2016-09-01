@@ -18,152 +18,222 @@
  */
 package simplenlg.lexicon;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import simplenlg.features.InterrogativeType;
 import simplenlg.framework.LexicalCategory;
 import simplenlg.framework.WordElement;
 
-/** This class contains a set of lexicons, which are searched in
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class contains a set of lexicons, which are searched in
  * order for the specified word
- * 
- * @author ereiter
  *
+ * @author ereiter
  */
 public class MultipleLexicon extends Lexicon {
-	
-	/* if this flag is true, all lexicons are searched for
-	 * this word, even after a match is found
-	 * it is false by default
-	 * */
-	private boolean alwaysSearchAll = false;
-	
-	/* list of lexicons, in order in which they are searched */
-	private List<Lexicon> lexiconList = null;
 
-	/**********************************************************************/
-	// constructors
-	/**********************************************************************/
-	
-	/**
-	 * create an empty multi lexicon
-	 */
-	public MultipleLexicon() {
-		super();
-		lexiconList = new ArrayList<Lexicon>();
-		alwaysSearchAll = false;
-	}
-	
-	/** create a multi lexicon with the specified lexicons
-	 * @param lexicons
-	 */
-	public MultipleLexicon(Lexicon... lexicons) {
-		this();
-		for (Lexicon lex: lexicons)
-			lexiconList.add(lex);
-	}
-	
-	/**********************************************************************/
-	// routines to add more lexicons, change flags
-	/**********************************************************************/
+    /* if this flag is true, all lexicons are searched for
+     * this word, even after a match is found
+     * it is false by default
+     * */
+    private boolean alwaysSearchAll = false;
 
-	/** add lexicon at beginning of list (is searched first)
-	 * @param lex
-	 */
-	public void addInitialLexicon(Lexicon lex) {
-		lexiconList.add(0, lex);
-	}
+    /* list of lexicons, in order in which they are searched */
+    private List<Lexicon> lexiconList = null;
 
-	/** add lexicon at end of list (is searched last)
-	 * @param lex
-	 */
-	public void addFinalLexicon(Lexicon lex) {
-		lexiconList.add(0, lex);
-	}
+    /**********************************************************************/
+    // constructors
+    /**********************************************************************/
 
-	/**
-	 * @return the alwaysSearchAll
-	 */
-	public boolean isAlwaysSearchAll() {
-		return alwaysSearchAll;
-	}
+    /**
+     * create an empty multi lexicon
+     */
+    public MultipleLexicon() {
+        super();
+        lexiconList = new ArrayList<Lexicon>();
+        alwaysSearchAll = false;
+    }
 
-	/**
-	 * @param alwaysSearchAll the alwaysSearchAll to set
-	 */
-	public void setAlwaysSearchAll(boolean alwaysSearchAll) {
-		this.alwaysSearchAll = alwaysSearchAll;
-	}
+    /**
+     * create a multi lexicon with the specified lexicons
+     *
+     * @param lexicons
+     */
+    public MultipleLexicon(Lexicon... lexicons) {
+        this();
+        for (Lexicon lex : lexicons)
+            lexiconList.add(lex);
+    }
 
-	/**********************************************************************/
-	// main methods
-	/**********************************************************************/
+    /**********************************************************************/
+    // routines to add more lexicons, change flags
+    /**********************************************************************/
 
-	/* (non-Javadoc)
-	 * @see simplenlg.lexicon.Lexicon#getWords(java.lang.String, simplenlg.features.LexicalCategory)
-	 */
-	@Override
-	public List<WordElement> getWords(String baseForm, LexicalCategory category) {
-		List<WordElement> result = new ArrayList<WordElement>();
-		for (Lexicon lex: lexiconList) {
-			List<WordElement> lexResult = lex.getWords(baseForm, category);
-			if (lexResult != null && !lexResult.isEmpty()) {
-				result.addAll(lexResult);
-				if (!alwaysSearchAll)
-					return result;
-			}
-		}
-		return result;
-	}
+    /**
+     * add lexicon at beginning of list (is searched first)
+     *
+     * @param lex
+     */
+    public void addInitialLexicon(Lexicon lex) {
+        lexiconList.add(0, lex);
+    }
+
+    /**
+     * add lexicon at end of list (is searched last)
+     *
+     * @param lex
+     */
+    public void addFinalLexicon(Lexicon lex) {
+        lexiconList.add(0, lex);
+    }
+
+    /**
+     * @return the alwaysSearchAll
+     */
+    public boolean isAlwaysSearchAll() {
+        return alwaysSearchAll;
+    }
+
+    /**
+     * @param alwaysSearchAll the alwaysSearchAll to set
+     */
+    public void setAlwaysSearchAll(boolean alwaysSearchAll) {
+        this.alwaysSearchAll = alwaysSearchAll;
+    }
+
+    /**********************************************************************/
+    // main methods
+
+    /**********************************************************************/
 
 	/* (non-Javadoc)
-	 * @see simplenlg.lexicon.Lexicon#getWordsByID(java.lang.String)
+     * @see simplenlg.lexicon.Lexicon#getWords(java.lang.String, simplenlg.features.LexicalCategory)
 	 */
-	@Override
-	public List<WordElement> getWordsByID(String id) {
-		List<WordElement> result = new ArrayList<WordElement>();
-		for (Lexicon lex: lexiconList) {
-			List<WordElement> lexResult = lex.getWordsByID(id);
-			if (lexResult != null && !lexResult.isEmpty()) {
-				result.addAll(lexResult);
-				if (!alwaysSearchAll)
-					return result;
-			}
-		}
-		return result;
-	}
+    @Override
+    public List<WordElement> getWords(String baseForm, LexicalCategory category) {
+        List<WordElement> result = new ArrayList<WordElement>();
+        for (Lexicon lex : lexiconList) {
+            List<WordElement> lexResult = lex.getWords(baseForm, category);
+            if (lexResult != null && !lexResult.isEmpty()) {
+                result.addAll(lexResult);
+                if (!alwaysSearchAll)
+                    return result;
+            }
+        }
+        return result;
+    }
 
-	/* (non-Javadoc)
-	 * @see simplenlg.lexicon.Lexicon#getWordsFromVariant(java.lang.String, simplenlg.features.LexicalCategory)
-	 */
-	@Override
-	public List<WordElement> getWordsFromVariant(String variant, LexicalCategory category) {
-		List<WordElement> result = new ArrayList<WordElement>();
-		for (Lexicon lex: lexiconList) {
-			List<WordElement> lexResult = lex.getWordsFromVariant(variant, category);
-			if (lexResult != null && !lexResult.isEmpty()) {
-				result.addAll(lexResult);
-				if (!alwaysSearchAll)
-					return result;
-			}
-		}
-		return result;
-	}
+    /* (non-Javadoc)
+     * @see simplenlg.lexicon.Lexicon#getWordsByID(java.lang.String)
+     */
+    @Override
+    public List<WordElement> getWordsByID(String id) {
+        List<WordElement> result = new ArrayList<WordElement>();
+        for (Lexicon lex : lexiconList) {
+            List<WordElement> lexResult = lex.getWordsByID(id);
+            if (lexResult != null && !lexResult.isEmpty()) {
+                result.addAll(lexResult);
+                if (!alwaysSearchAll)
+                    return result;
+            }
+        }
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see simplenlg.lexicon.Lexicon#getWordsFromVariant(java.lang.String, simplenlg.features.LexicalCategory)
+     */
+    @Override
+    public List<WordElement> getWordsFromVariant(String variant, LexicalCategory category) {
+        List<WordElement> result = new ArrayList<WordElement>();
+        for (Lexicon lex : lexiconList) {
+            List<WordElement> lexResult = lex.getWordsFromVariant(variant, category);
+            if (lexResult != null && !lexResult.isEmpty()) {
+                result.addAll(lexResult);
+                if (!alwaysSearchAll)
+                    return result;
+            }
+        }
+        return result;
+    }
 
 
-	/**********************************************************************/
-	// other methods
-	/**********************************************************************/
+    /**********************************************************************/
+    // other methods
+
+    /**********************************************************************/
 
 	/* (non-Javadoc)
 	 * @see simplenlg.lexicon.Lexicon#close()
 	 */
-	@Override
-	public void close() {
-		// close component lexicons
-		for (Lexicon lex: lexiconList)
-			lex.close();
-	}
+    @Override
+    public void close() {
+        // close component lexicons
+        for (Lexicon lex : lexiconList)
+            lex.close();
+    }
 
+    /**
+     * Get the coordination conjunction used for addition in this lexicon.
+     *
+     * @return the coordination conjunction used for addition in this lexicon
+     */
+    public WordElement getAdditionCoordConjunction() {
+        return lookupWord("and", LexicalCategory.CONJUNCTION);
+    }
 
+    /**
+     * Get the default complementiser for clauses.
+     *
+     * @return the default complementiser for clauses in this lexicon
+     */
+    public WordElement getDefaultComplementiser() {
+        return lookupWord("that", LexicalCategory.COMPLEMENTISER);
+    }
+
+    /**
+     * Get the preposition used for passive subjects.
+     *
+     * @return the default complementiser for clauses in this lexicon
+     */
+    @Override
+    public WordElement getPassivePreposition() {
+        return lookupWord("by", LexicalCategory.PREPOSITION);
+    }
+
+    @Override
+    public String getInterrogativeTypeString(InterrogativeType type) {
+        String s = "";
+
+        switch (type) {
+            case HOW:
+            case HOW_PREDICATE:
+                s = "how";
+                break;
+            case WHAT_OBJECT:
+            case WHAT_SUBJECT:
+                s = "what";
+                break;
+            case WHERE:
+                s = "where";
+                break;
+            case WHO_INDIRECT_OBJECT:
+            case WHO_OBJECT:
+            case WHO_SUBJECT:
+                s = "who";
+                break;
+            case WHY:
+                s = "why";
+                break;
+            case HOW_MANY:
+                s = "how many";
+                break;
+            case YES_NO:
+                s = "yes/no";
+                break;
+        }
+
+        return s;
+    }
 }

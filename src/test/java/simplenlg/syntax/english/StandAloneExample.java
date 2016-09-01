@@ -19,18 +19,10 @@
 package simplenlg.syntax.english;
 
 import org.junit.Ignore;
-
 import simplenlg.features.Feature;
 import simplenlg.features.Tense;
-import simplenlg.framework.DocumentElement;
-import simplenlg.framework.InflectedWordElement;
-import simplenlg.framework.LexicalCategory;
-import simplenlg.framework.NLGElement;
-import simplenlg.framework.NLGFactory;
-import simplenlg.framework.StringElement;
-import simplenlg.framework.WordElement;
+import simplenlg.framework.*;
 import simplenlg.lexicon.Lexicon;
-import simplenlg.lexicon.XMLLexicon;
 import simplenlg.phrasespec.AdjPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.PPPhraseSpec;
@@ -53,7 +45,7 @@ public class StandAloneExample {
 		// afterwards is an example of using simplenlg just for morphology
 		
 		// set up
-		Lexicon lexicon = new XMLLexicon();                          // default simplenlg lexicon
+		Lexicon lexicon = new simplenlg.lexicon.english.XMLLexicon();                          // default simplenlg lexicon
 		NLGFactory nlgFactory = new NLGFactory(lexicon);             // factory based on lexicon
 
 		// create sentences

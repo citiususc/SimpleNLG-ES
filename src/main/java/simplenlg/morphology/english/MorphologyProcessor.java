@@ -18,13 +18,13 @@
  */
 package simplenlg.morphology.english;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import simplenlg.features.DiscourseFunction;
 import simplenlg.features.Feature;
 import simplenlg.features.InternalFeature;
 import simplenlg.framework.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -33,14 +33,14 @@ import simplenlg.framework.*;
  * to the word. For example, <em>kiss</em> is inflected to <em>kissed</em> for
  * past tense, <em>dog</em> is inflected to <em>dogs</em> for pluralisation.
  * </p>
- *
+ * <p>
  * <p>
  * As a matter of course, the processor will first use any user-defined
  * inflection for the world. If no inflection is provided then the lexicon, if
  * it exists, will be examined for the correct inflection. Failing this a set of
  * very basic rules will be examined to inflect the word.
  * </p>
- *
+ * <p>
  * <p>
  * All processing modules perform realisation on a tree of
  * <code>NLGElement</code>s. The modules can alter the tree in whichever way
@@ -48,203 +48,161 @@ import simplenlg.framework.*;
  * list elements consisting of inflected words while the morphology processor
  * replaces inflected words with string elements.
  * </p>
- *
+ * <p>
  * <p>
  * <b>N.B.</b> the use of <em>module</em>, <em>processing module</em> and
  * <em>processor</em> is interchangeable. They all mean an instance of this
  * class.
  * </p>
  *
- *
  * @author D. Westwater, University of Aberdeen.
  * @version 4.0
  */
-public class MorphologyProcessor extends NLGModule {
+public class MorphologyProcessor extends simplenlg.morphology.MorphologyProcessor {
 
-	@Override
-	public void initialise() {
-		// Do nothing
-	}
+    public MorphologyProcessor() {
+        super(new MorphologyRules());
+    }
 
-	@Override
-	public NLGElement realise(NLGElement element) {
-		NLGElement realisedElement = null;
+    @Override
+    public void initialise() {
+        // Do nothing
+    }
 
-		if(element instanceof InflectedWordElement) {
-			realisedElement = doMorphology((InflectedWordElement) element);
+    @Override
+    public List<NLGElement> realise(List<NLGElement> elements) {
+        List<NLGElement> realisedElements = new ArrayList<NLGElement>();
+        NLGElement currentElement = null;
+        NLGElement determiner = null;
+        NLGElement prevElement = null;
 
-		} else if(element instanceof StringElement) {
-			realisedElement = element;
+        if (elements != null) {
+            for (NLGElement eachElement : elements) {
+                currentElement = realise(eachElement);
 
-		} else if(element instanceof WordElement) {
-			// AG: now retrieves the default spelling variant, not the baseform
-			// String baseForm = ((WordElement) element).getBaseForm();
-			String defaultSpell = ((WordElement) element).getDefaultSpellingVariant();
+                if (currentElement != null) {
+                    //pass the discourse function and appositive features -- important for orth processor
+                    currentElement.setFeature(Feature.APPOSITIVE, eachElement.getFeature(Feature.APPOSITIVE));
+                    Object function = eachElement.getFeature(InternalFeature.DISCOURSE_FUNCTION);
 
-			if(defaultSpell != null) {
-				realisedElement = new StringElement(defaultSpell);
-			}
+                    if (function != null) {
+                        currentElement.setFeature(InternalFeature.DISCOURSE_FUNCTION, function);
+                    }
 
-		} else if(element instanceof DocumentElement) {
-			List<NLGElement> children = element.getChildren();
-			((DocumentElement) element).setComponents(realise(children));
-			realisedElement = element;
+                    if (prevElement != null && prevElement instanceof StringElement
+                            && eachElement instanceof InflectedWordElement
+                            && ((InflectedWordElement) eachElement).getCategory().equals(LexicalCategory.NOUN)) {
 
-		} else if(element instanceof ListElement) {
-			realisedElement = new ListElement();
-			((ListElement) realisedElement).addComponents(realise(element.getChildren()));
+                        String prevString = prevElement.getRealisation();
 
-		} else if(element instanceof CoordinatedPhraseElement) {
-			List<NLGElement> children = element.getChildren();
-			((CoordinatedPhraseElement) element).clearCoordinates();
+                        //realisedElements.get(realisedElements.size() - 1)
 
-			if(children != null && children.size() > 0) {
-				((CoordinatedPhraseElement) element).addCoordinate(realise(children.get(0)));
+                        prevElement.setRealisation(DeterminerAgrHelper.checkEndsWithIndefiniteArticle(prevString,
+                                currentElement.getRealisation()));
 
-				for(int index = 1; index < children.size(); index++) {
-					((CoordinatedPhraseElement) element).addCoordinate(realise(children.get(index)));
-				}
+                    }
 
-				realisedElement = element;
-			}
+                    // realisedElements.add(realise(currentElement));
+                    realisedElements.add(currentElement);
 
-		} else if(element != null) {
-			realisedElement = element;
-		}
+                    if (determiner == null && DiscourseFunction.SPECIFIER.equals(currentElement.getFeature(
+                            InternalFeature.DISCOURSE_FUNCTION))) {
+                        determiner = currentElement;
+                        determiner.setFeature(Feature.NUMBER, eachElement.getFeature(Feature.NUMBER));
+                        // MorphologyRules.doDeterminerMorphology(determiner,
+                        // currentElement.getRealisation());
 
-		return realisedElement;
-	}
+                    } else if (determiner != null) {
 
-	/**
-	 * This is the main method for performing the morphology. It effectively
-	 * examines the lexical category of the element and calls the relevant set
-	 * of rules from <code>MorphologyRules</em>.
-	 *
-	 * @param element
-	 *            the <code>InflectedWordElement</code>
-	 * @return an <code>NLGElement</code> reflecting the correct inflection for
-	 *         the word.
-	 */
-	private NLGElement doMorphology(InflectedWordElement element) {
-		NLGElement realisedElement = null;
-		if(element.getFeatureAsBoolean(InternalFeature.NON_MORPH).booleanValue()) {
-			realisedElement = new StringElement(element.getBaseForm());
-			realisedElement.setFeature(InternalFeature.DISCOURSE_FUNCTION,
-			                           element.getFeature(InternalFeature.DISCOURSE_FUNCTION));
+                        if (currentElement instanceof ListElement) {
+                            // list elements: ensure det matches first element
+                            NLGElement firstChild = ((ListElement) currentElement).getChildren().get(0);
 
-		} else {
-			NLGElement baseWord = element.getFeatureAsElement(InternalFeature.BASE_WORD);
+                            if (firstChild != null) {
+                                //AG: need to check if child is a coordinate
+                                if (firstChild instanceof CoordinatedPhraseElement) {
+                                    morphologyRules.doDeterminerMorphology(determiner,
+                                            firstChild.getChildren().get(0).getRealisation());
+                                } else {
+                                    morphologyRules.doDeterminerMorphology(determiner, firstChild.getRealisation());
+                                }
+                            }
 
-			if(baseWord == null && this.lexicon != null) {
-				baseWord = this.lexicon.lookupWord(element.getBaseForm());
-			}
+                        } else {
+                            // everything else: ensure det matches realisation
+                            morphologyRules.doDeterminerMorphology(determiner, currentElement.getRealisation());
+                        }
 
-			ElementCategory category = element.getCategory();
+                        determiner = null;
+                    }
+                }
+                prevElement = eachElement;
+            }
+        }
 
-			if(category instanceof LexicalCategory) {
-				switch((LexicalCategory) category){
-				case PRONOUN:
-					realisedElement = MorphologyRules.doPronounMorphology(element);
-					break;
+        return realisedElements;
+    }
 
-				case NOUN:
-					realisedElement = MorphologyRules.doNounMorphology(element, (WordElement) baseWord);
-					break;
+    /**
+     * This is the main method for performing the morphology. It effectively
+     * examines the lexical category of the element and calls the relevant set
+     * of rules from <code>MorphologyRules</em>.
+     *
+     * @param element the <code>InflectedWordElement</code>
+     * @return an <code>NLGElement</code> reflecting the correct inflection for
+     * the word.
+     */
+    @Override
+    protected NLGElement doMorphology(InflectedWordElement element) {
+        NLGElement realisedElement = null;
+        if (element.getFeatureAsBoolean(InternalFeature.NON_MORPH).booleanValue()) {
+            realisedElement = new StringElement(element.getBaseForm());
+            realisedElement.setFeature(InternalFeature.DISCOURSE_FUNCTION,
+                    element.getFeature(InternalFeature.DISCOURSE_FUNCTION));
 
-				case VERB:
-					realisedElement = MorphologyRules.doVerbMorphology(element, (WordElement) baseWord);
-					break;
+        } else {
+            NLGElement baseWord = element.getFeatureAsElement(InternalFeature.BASE_WORD);
 
-				case ADJECTIVE:
-					realisedElement = MorphologyRules.doAdjectiveMorphology(element, (WordElement) baseWord);
-					break;
+            if (baseWord == null && this.lexicon != null) {
+                baseWord = this.lexicon.lookupWord(element.getBaseForm());
+            }
 
-				case ADVERB:
-					realisedElement = MorphologyRules.doAdverbMorphology(element, (WordElement) baseWord);
-					break;
+            ElementCategory category = element.getCategory();
 
-				default:
-					realisedElement = new StringElement(element.getBaseForm());
-					realisedElement.setFeature(InternalFeature.DISCOURSE_FUNCTION,
-					                           element.getFeature(InternalFeature.DISCOURSE_FUNCTION));
-				}
-			}
-		}
-		return realisedElement;
-	}
+            if (category instanceof LexicalCategory) {
+                switch ((LexicalCategory) category) {
+                    case PRONOUN:
+                        realisedElement = morphologyRules.doPronounMorphology(element);
+                        break;
 
-	@Override
-	public List<NLGElement> realise(List<NLGElement> elements) {
-		List<NLGElement> realisedElements = new ArrayList<NLGElement>();
-		NLGElement currentElement = null;
-		NLGElement determiner = null;
-		NLGElement prevElement = null;
+                    case NOUN:
+                        realisedElement = morphologyRules.doNounMorphology(element, (WordElement) baseWord);
+                        break;
 
-		if(elements != null) {
-			for(NLGElement eachElement : elements) {
-				currentElement = realise(eachElement);
+                    case VERB:
+                        realisedElement = morphologyRules.doVerbMorphology(element, (WordElement) baseWord);
+                        break;
 
-				if(currentElement != null) {
-					//pass the discourse function and appositive features -- important for orth processor
-					currentElement.setFeature(Feature.APPOSITIVE, eachElement.getFeature(Feature.APPOSITIVE));
-					Object function = eachElement.getFeature(InternalFeature.DISCOURSE_FUNCTION);
+                    case ADJECTIVE:
+                        realisedElement = morphologyRules.doAdjectiveMorphology(element, (WordElement) baseWord);
+                        break;
 
-					if(function != null) {
-						currentElement.setFeature(InternalFeature.DISCOURSE_FUNCTION, function);
-					}
+                    case ADVERB:
+                        realisedElement = morphologyRules.doAdverbMorphology(element, (WordElement) baseWord);
+                        break;
 
-					if(prevElement != null && prevElement instanceof StringElement
-					   && eachElement instanceof InflectedWordElement
-					   && ((InflectedWordElement) eachElement).getCategory().equals(LexicalCategory.NOUN)) {
+                    case DETERMINER:
+                        realisedElement = morphologyRules.doDeterminerMorphology(element);
+                        break;
 
-						String prevString = prevElement.getRealisation();
-
-						//realisedElements.get(realisedElements.size() - 1)
-
-						prevElement.setRealisation(DeterminerAgrHelper.checkEndsWithIndefiniteArticle(prevString,
-						                                                                              currentElement.getRealisation()));
-
-					}
-
-					// realisedElements.add(realise(currentElement));
-					realisedElements.add(currentElement);
-
-					if(determiner == null && DiscourseFunction.SPECIFIER.equals(currentElement.getFeature(
-							InternalFeature.DISCOURSE_FUNCTION))) {
-						determiner = currentElement;
-						determiner.setFeature(Feature.NUMBER, eachElement.getFeature(Feature.NUMBER));
-						// MorphologyRules.doDeterminerMorphology(determiner,
-						// currentElement.getRealisation());
-
-					} else if(determiner != null) {
-
-						if(currentElement instanceof ListElement) {
-							// list elements: ensure det matches first element
-							NLGElement firstChild = ((ListElement) currentElement).getChildren().get(0);
-
-							if(firstChild != null) {
-								//AG: need to check if child is a coordinate
-								if(firstChild instanceof CoordinatedPhraseElement) {
-									MorphologyRules.doDeterminerMorphology(determiner,
-									                                       firstChild.getChildren().get(0).getRealisation());
-								} else {
-									MorphologyRules.doDeterminerMorphology(determiner, firstChild.getRealisation());
-								}
-							}
-
-						} else {
-							// everything else: ensure det matches realisation
-							MorphologyRules.doDeterminerMorphology(determiner, currentElement.getRealisation());
-						}
-
-						determiner = null;
-					}
-				}
-				prevElement = eachElement;
-			}
-		}
-
-		return realisedElements;
-	}
+                    default:
+                        realisedElement = new StringElement(element.getBaseForm());
+                        realisedElement.setFeature(InternalFeature.DISCOURSE_FUNCTION,
+                                element.getFeature(InternalFeature.DISCOURSE_FUNCTION));
+                }
+            }
+        }
+        return realisedElement;
+    }
 
 }

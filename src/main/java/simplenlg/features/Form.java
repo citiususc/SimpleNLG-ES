@@ -81,5 +81,12 @@ public enum Form {
 	 * verb being used as a noun. The present participle remains as a verb. For 
 	 * example, <em>Jim was <b>sleeping</b></em>.
 	 */
-	PRESENT_PARTICIPLE;
+    PRESENT_PARTICIPLE,
+
+    /**
+     * Subjunctive forms of verbs are typically used to express various states
+     * of unreality such as wish, emotion, possibility, judgment, opinion,
+     * obligation, or action that has not yet occurred.
+     */
+    SUBJUNCTIVE
 }

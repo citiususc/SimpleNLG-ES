@@ -19,21 +19,15 @@
  */
 package simplenlg.server;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import simplenlg.lexicon.NIHDBLexicon;
+import simplenlg.xmlrealiser.XMLRealiser;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Properties;
-
-import simplenlg.xmlrealiser.XMLRealiser;
-import simplenlg.xmlrealiser.XMLRealiser.LexiconType;
 
 /**
  * SimpleServer is a program that realises xml requests.
@@ -54,13 +48,10 @@ import simplenlg.xmlrealiser.XMLRealiser.LexiconType;
  */
 public class SimpleServer implements Runnable {
 
-    private ServerSocket serverSocket;
-
     /**
      * Set to true to enable printing debug messages.
      */
     static boolean DEBUG = false;
-    
     /**
      * This path should be replaced by the path to the specialist lexicon.
      * If there is an entry for DB_FILENAME in lexicon.properties, that path
@@ -68,7 +59,7 @@ public class SimpleServer implements Runnable {
      * be used.
      */
     String lexiconPath = "src/main/resources/NIHLexicon/lexAccess2011.data";
-
+    private ServerSocket serverSocket;
     // control the run loop
     private boolean isActive = true;
     
@@ -92,150 +83,22 @@ public class SimpleServer implements Runnable {
     public SimpleServer(ServerSocket socket) throws IOException {
     	startServer(socket);
     }
-    
-
-	/**
-	 * startServer -- Start's the SimpleServer with a created ServerSocket.
-	 * @param socket -- The socket for the server to use.
-	 * @throws IOException
-	 * @throws SocketException
-	 */
-	private void startServer(ServerSocket socket) throws IOException, SocketException {
-		serverSocket = socket;
-        serverSocket.setReuseAddress(true);
-        serverSocket.setSoTimeout(0);
-        
-        System.out.println("Port Number used by Server is: " + serverSocket.getLocalPort());
-        
-        // try to read the lexicon path from lexicon.properties file
-        try {
-            Properties prop = new Properties();
-            FileReader reader = new FileReader(new File("./src/main/resources/lexicon.properties"));
-            prop.load(reader);
-            
-            String dbFile = prop.getProperty("DB_FILENAME");
-            
-            if (null != dbFile)
-                lexiconPath = dbFile;
-            else
-                throw new Exception("No DB_FILENAME in lexicon.properties");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        System.out.println("Server is using the following lexicon: "
-                           + lexiconPath);
-        
-        XMLRealiser.setLexicon(LexiconType.NIHDB, this.lexiconPath);
-	}
 
     static void print(Object o) {
         System.out.println(o);
     }
 
     /**
-     * Terminate the server. The server can be started
-     * again by invoking the <code>run()</code> method.
-     */
-    public void terminate() {
-        this.isActive = false;
-    }
-
-    
-    /**
-     * Start the server.
-     * 
-     * The server will listen on the port specified at construction
-     * until terminated by calling the <code>terminate()</code> method.
-     * 
-     * Note that the <code>exit()</code> and <code>exit(int)</code>
-     * methods will terminate the program by calling System.exit().
-     */
-    public void run() {
-        try {
-            while (this.isActive) {
-                try {
-                    if (DEBUG) {
-                        System.out.println("Waiting for client on port " +
-                                serverSocket.getLocalPort() + "...");
-                    }
-                    
-                    Socket clientSocket = serverSocket.accept();
-                    handleClient(clientSocket);
-                } catch (SocketTimeoutException s) {
-                    System.err.println("Socket timed out!");
-                    break;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                this.serverSocket.close();
-            } catch (Exception ee) {
-                System.err.println("Could not close socket!");
-            }
-        }
-    }
-
-    /**
-     * Handle the incoming client connection by constructing 
-     * a <code>RealisationRequest</code> and starting it in a thread.
-     * 
-     * @param socket
-     *          the socket on which the client connected
-     */
-    protected void handleClient(Socket socket) {
-        if (null == socket)
-            return;
-
-        Thread request = new Thread(new RealisationRequest(socket));
-        request.setDaemon(true);
-        request.start();
-    }
-
-    /**
-     * Perform shutdown routines.
-     */
-    synchronized public void shutdown() {
-        System.out.println("Server shutting down.");
-        
-        terminate();
-        // cleanup...like close log, etc.
-    }
-
-    /**
-     * Exit the program without error.
-     */
-    synchronized public void exit() {
-        exit(0);
-    }
-
-    /**
-     * Exit the program signalling an error code.
-     * 
-     * @param code
-     *          Error code; 0 means no error
-     */
-    synchronized public void exit(int code) {
-        System.exit(code);
-    }
-
-    /**
      * The main method that starts the server.
-     * 
+     * <p>
      * The program takes one optional parameter,
      * which is the port number on which to listen.
      * The default value is 50007.
-     * 
+     * <p>
      * Once the program starts, it can be terminated
      * by typing the command 'exit'
-     * 
-     * @param args
-     *          Program arguments
+     *
+     * @param args Program arguments
      */
     public static void main(String[] args) {
         int port;
@@ -275,5 +138,130 @@ public class SimpleServer implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+	/**
+	 * startServer -- Start's the SimpleServer with a created ServerSocket.
+	 * @param socket -- The socket for the server to use.
+	 * @throws IOException
+	 * @throws SocketException
+	 */
+	private void startServer(ServerSocket socket) throws IOException, SocketException {
+		serverSocket = socket;
+        serverSocket.setReuseAddress(true);
+        serverSocket.setSoTimeout(0);
+
+        System.out.println("Port Number used by Server is: " + serverSocket.getLocalPort());
+
+        // try to read the lexicon path from lexicon.properties file
+        try {
+            Properties prop = new Properties();
+            FileReader reader = new FileReader(new File("./src/main/resources/lexicon.properties"));
+            prop.load(reader);
+
+            String dbFile = prop.getProperty("DB_FILENAME");
+
+            if (null != dbFile)
+                lexiconPath = dbFile;
+            else
+                throw new Exception("No DB_FILENAME in lexicon.properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Server is using the following lexicon: "
+                           + lexiconPath);
+
+        XMLRealiser.setLexicon(new NIHDBLexicon(this.lexiconPath));
+    }
+
+    /**
+     * Terminate the server. The server can be started
+     * again by invoking the <code>run()</code> method.
+     */
+    public void terminate() {
+        this.isActive = false;
+    }
+
+    /**
+     * Start the server.
+     *
+     * The server will listen on the port specified at construction
+     * until terminated by calling the <code>terminate()</code> method.
+     *
+     * Note that the <code>exit()</code> and <code>exit(int)</code>
+     * methods will terminate the program by calling System.exit().
+     */
+    public void run() {
+        try {
+            while (this.isActive) {
+                try {
+                    if (DEBUG) {
+                        System.out.println("Waiting for client on port " +
+                                serverSocket.getLocalPort() + "...");
+                    }
+
+                    Socket clientSocket = serverSocket.accept();
+                    handleClient(clientSocket);
+                } catch (SocketTimeoutException s) {
+                    System.err.println("Socket timed out!");
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                this.serverSocket.close();
+            } catch (Exception ee) {
+                System.err.println("Could not close socket!");
+            }
+        }
+    }
+
+    /**
+     * Handle the incoming client connection by constructing
+     * a <code>RealisationRequest</code> and starting it in a thread.
+     *
+     * @param socket
+     *          the socket on which the client connected
+     */
+    protected void handleClient(Socket socket) {
+        if (null == socket)
+            return;
+
+        Thread request = new Thread(new RealisationRequest(socket));
+        request.setDaemon(true);
+        request.start();
+    }
+
+    /**
+     * Perform shutdown routines.
+     */
+    synchronized public void shutdown() {
+        System.out.println("Server shutting down.");
+
+        terminate();
+        // cleanup...like close log, etc.
+    }
+
+    /**
+     * Exit the program without error.
+     */
+    synchronized public void exit() {
+        exit(0);
+    }
+
+    /**
+     * Exit the program signalling an error code.
+     *
+     * @param code
+     *          Error code; 0 means no error
+     */
+    synchronized public void exit(int code) {
+        System.exit(code);
     }
 }

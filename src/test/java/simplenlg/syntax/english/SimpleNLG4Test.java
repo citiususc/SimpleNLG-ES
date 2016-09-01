@@ -19,14 +19,10 @@
 package simplenlg.syntax.english;
 
 import junit.framework.TestCase;
-
 import org.junit.After;
 import org.junit.Before;
-
-
 import simplenlg.framework.NLGFactory;
 import simplenlg.framework.PhraseElement;
-import simplenlg.lexicon.XMLLexicon;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.VPPhraseSpec;
 import simplenlg.realiser.english.Realiser;
@@ -75,7 +71,7 @@ public abstract class SimpleNLG4Test extends TestCase {
 	@Override
 	@Before
 	protected void setUp() {
-        lexicon = new XMLLexicon();  // built in lexicon
+		lexicon = new simplenlg.lexicon.english.XMLLexicon(); // built in lexicon
 
 		this.phraseFactory = new NLGFactory(this.lexicon);
 		this.realiser = new Realiser(this.lexicon);
