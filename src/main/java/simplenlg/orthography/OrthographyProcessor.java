@@ -185,7 +185,6 @@ public abstract class OrthographyProcessor extends NLGModule {
                         if (postmod.getFeatureAsBoolean(Feature.APPOSITIVE)) {
                             buffer.append(", ");
                             buffer.append(realise(postmod));
-
                             if (i < len - 1) {
                                 buffer.append(", ");
                             }
@@ -281,6 +280,10 @@ public abstract class OrthographyProcessor extends NLGModule {
      */
     protected void terminateSentence(StringBuffer realisation, boolean interrogative) {
         char character = realisation.charAt(realisation.length() - 1);
+//        if (character == ','){
+//            realisation.deleteCharAt(realisation.length() - 1);
+//            character = realisation.charAt(realisation.length() - 1);
+//        }
         if (character != '.' && character != '?') {
             if (interrogative) {
                 realisation.append('?');

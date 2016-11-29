@@ -220,16 +220,15 @@ class VerbPhraseHelper extends simplenlg.syntax.VerbPhraseHelper {
             frontVG = addHave(frontVG, vgComponents, modal, tenseValue);
         }
 
-        frontVG = pushIfModal(actualModal != null, phrase, frontVG,
-                vgComponents);
+        frontVG = pushIfModal(actualModal != null, phrase, frontVG, vgComponents);
+        pushModal(actualModal, phrase, vgComponents);
+        frontVG = addReflexivePronoun(phrase, vgComponents, frontVG);
         frontVG = createNot(phrase, vgComponents, frontVG, modal != null);
 
         if (frontVG != null) {
             pushFrontVerb(phrase, vgComponents, frontVG, formValue, interrogative);
             frontVG.setFeature(Feature.FORM, formValue);
         }
-
-        pushModal(actualModal, phrase, vgComponents);
         return vgComponents;
     }
 
@@ -284,6 +283,48 @@ class VerbPhraseHelper extends simplenlg.syntax.VerbPhraseHelper {
             return null;
         }
 
+        return frontVG;
+    }
+
+    private NLGElement addReflexivePronoun(PhraseElement phrase, Stack<NLGElement> vgComponents, NLGElement frontVG) {
+
+        if (phrase.getFeatureAsBoolean(LexicalFeature.REFLEXIVE)) {
+            Person p = (Person) phrase.getFeature(Feature.PERSON);
+            NumberAgreement n = (NumberAgreement) phrase.getFeature(Feature.NUMBER);
+            InflectedWordElement pronoun;
+            switch (p) {
+                case FIRST:
+                    switch (n) {
+                        case PLURAL:
+                            pronoun = new InflectedWordElement("nosotros", LexicalCategory.PRONOUN);
+                            break;
+                        default:
+                            pronoun = new InflectedWordElement("yo", LexicalCategory.PRONOUN);
+                    }
+                    break;
+                case SECOND:
+                    switch (n) {
+                        case PLURAL:
+                            pronoun = new InflectedWordElement("vosotros", LexicalCategory.PRONOUN);
+                            break;
+                        default:
+                            pronoun = new InflectedWordElement("tú", LexicalCategory.PRONOUN);
+                    }
+                    break;
+                default:
+                    switch (n) {
+                        case PLURAL:
+                            pronoun = new InflectedWordElement("ellos", LexicalCategory.PRONOUN);
+                            break;
+                        default:
+                            pronoun = new InflectedWordElement("él", LexicalCategory.PRONOUN);
+                    }
+            }
+            vgComponents.push(frontVG);
+            pronoun.setParent(phrase);
+            vgComponents.push(pronoun);
+            return null;
+        }
         return frontVG;
     }
 
@@ -415,6 +456,22 @@ class VerbPhraseHelper extends simplenlg.syntax.VerbPhraseHelper {
             modal.setFeature(Feature.PERSON, phrase.getFeature(Feature.PERSON));
             modal.setFeature(Feature.NUMBER, phrase.getFeature(Feature.NUMBER));
             vgComponents.push(modal);
+        }
+    }
+
+    /**
+     * Checks to see if the phrase is in imperative, infinitive or bare
+     * infinitive form. If it is then no morphology is done on the main verb.
+     *
+     * @param formValue the <code>Form</code> of the phrase.
+     * @param frontVG   the first verb in the verb group.
+     */
+    @Override
+    protected void checkImperativeInfinitive(Object formValue,
+                                             NLGElement frontVG) {
+
+        if (frontVG != null && !frontVG.getParent().getFeatureAsBoolean(Feature.PERFECT)) {
+            super.checkImperativeInfinitive(formValue, frontVG);
         }
     }
 

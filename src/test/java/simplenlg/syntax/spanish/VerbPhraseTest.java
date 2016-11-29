@@ -433,19 +433,19 @@ public class VerbPhraseTest extends SimpleNLG4Test {
         // set a modal
         coord1.setFeature(Feature.MODAL, "poder"); //$NON-NLS-1$
         assertEquals(
-                "puede no haber besado el perro y puede no haber golpeado el niño", //$NON-NLS-1$
+                "no puede haber besado el perro y no puede haber golpeado el niño", //$NON-NLS-1$
                 this.realiser.realise(coord1).getRealisation());
 
         // set perfect and progressive
         coord1.setFeature(Feature.PERFECT, true);
         coord1.setFeature(Feature.PROGRESSIVE, true);
-        assertEquals("puede no haber estado besando el perro y puede no haber estado golpeando el niño", this.realiser.realise( //$NON-NLS-1$
+        assertEquals("no puede haber estado besando el perro y no puede haber estado golpeando el niño", this.realiser.realise( //$NON-NLS-1$
                 coord1).getRealisation());
 
         // now aggregate
         coord1.setFeature(Feature.AGGREGATE_AUXILIARY, true);
         assertEquals(
-                "puede no haber estado besando el perro y golpeando el niño", //$NON-NLS-1$
+                "no puede haber estado besando el perro y golpeando el niño", //$NON-NLS-1$
                 this.realiser.realise(coord1).getRealisation());
     }
 }

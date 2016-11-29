@@ -20,18 +20,9 @@
 package simplenlg.syntax.english;
 
 import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Test;
-
-import simplenlg.features.DiscourseFunction;
-import simplenlg.features.Feature;
-import simplenlg.features.Tense;
-import simplenlg.features.Gender;
-import simplenlg.features.InternalFeature;
-import simplenlg.features.LexicalFeature;
-import simplenlg.features.NumberAgreement;
-import simplenlg.features.Person;
+import simplenlg.features.*;
 import simplenlg.framework.CoordinatedPhraseElement;
 import simplenlg.framework.LexicalCategory;
 import simplenlg.framework.NLGElement;
@@ -611,7 +602,7 @@ public class NounPhraseTest extends SimpleNLG4Test {
 		PhraseElement _rott = this.phraseFactory.createNounPhrase("a", "rottweiler");
 		_rott.setFeature(Feature.APPOSITIVE, true);
 		_dog.addPostModifier(_rott);
-		SPhraseSpec _sent = this.phraseFactory.createClause(_dog, "ran");		
+		SPhraseSpec _sent = this.phraseFactory.createClause(_dog, "ran");
 		Assert.assertEquals("The dog, a rottweiler, runs.", this.realiser.realiseSentence(_sent));
 	}
 }

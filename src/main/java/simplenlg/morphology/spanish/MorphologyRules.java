@@ -1498,14 +1498,22 @@ public class MorphologyRules extends simplenlg.morphology.MorphologyRules {
     private String buildRegularAdjective(String baseForm, Gender gender, NumberAgreement number) {
         String morphology = null;
         if (baseForm != null) {
-            morphology = baseForm.substring(0, baseForm.length() - 1);
-            if (Gender.FEMININE.equals(gender)) {
-                morphology = morphology + "a";
-            } else if (Gender.MASCULINE.equals(gender)) {
-                morphology = morphology + "o";
-            }
-            if (NumberAgreement.PLURAL.equals(number)) {
-                morphology = morphology + "s";
+            Character lastChar = baseForm.charAt(baseForm.length() - 1);
+            if (lastChar.equals('a') || lastChar.equals('o')) {
+                morphology = baseForm.substring(0, baseForm.length() - 1);
+                if (Gender.FEMININE.equals(gender)) {
+                    morphology = morphology + "a";
+                } else if (Gender.MASCULINE.equals(gender)) {
+                    morphology = morphology + "o";
+                }
+                if (NumberAgreement.PLURAL.equals(number)) {
+                    morphology = morphology + "s";
+                }
+            } else {
+                morphology = baseForm;
+                if (NumberAgreement.PLURAL.equals(number)) {
+                    morphology = morphology + "es";
+                }
             }
         }
         return morphology;

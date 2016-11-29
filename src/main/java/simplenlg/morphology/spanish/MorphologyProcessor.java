@@ -121,8 +121,14 @@ public class MorphologyProcessor extends simplenlg.morphology.MorphologyProcesso
                         }
                     }
 
-                    if (prevElement != null && LexicalCategory.VERB.equals(prevElement.getCategory()) && LexicalCategory.PRONOUN.equals(eachElement.getCategory())) {
-                        realisedElements.add(0, currentElement);
+                    if (prevElement != null && (LexicalCategory.VERB.equals(prevElement.getCategory()) || LexicalCategory.MODAL.equals(prevElement.getCategory())) && LexicalCategory.PRONOUN.equals(eachElement.getCategory())) {
+                        int i;
+                        for (i = 0; i < elements.size(); i++) {
+                            if (LexicalCategory.VERB.equals(elements.get(i).getCategory())) {
+                                break;
+                            }
+                        }
+                        realisedElements.add(i, currentElement);
                     } else {
                         realisedElements.add(currentElement);
                     }

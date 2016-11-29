@@ -71,7 +71,7 @@ Contributor(s): Ehud Reiter, Albert Gatt, Dave Westwater, Roman Kutlak, Margaret
             <fileset dir="${res.dir}" includes="*.properties"/>
         </copy>
         <copy todir="${classes.dir}/simplenlg/lexicon">
-        	<fileset dir="${res.dir}" includes="default-lexicon.xml" />
+            <fileset dir="${res.dir}" includes="*.xml"/>
         </copy>
     </target>
 
@@ -83,7 +83,7 @@ Contributor(s): Ehud Reiter, Albert Gatt, Dave Westwater, Roman Kutlak, Margaret
        <compilerarg value="-XDignore.symbol.file" />
     </javac>
         <copy todir="${classes.dir}/simplenlg/lexicon">
-            <fileset dir="${res.dir}" includes="default-lexicon.xml" />
+            <fileset dir="${res.dir}" includes="*.xml"/>
         </copy>
     </target>
 

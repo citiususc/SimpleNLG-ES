@@ -149,12 +149,11 @@ public abstract class XMLLexicon extends Lexicon {
         try {
 
             URL defaultLexicon = this.getClass().getClassLoader().getResource(resourceName);
-
             if (null != defaultLexicon) {
                 createLexicon(defaultLexicon.toURI());
             } else {
-                createLexicon(this.getClass().getResource(
-                        "/simplenlg/lexicon/default-lexicon.xml").toURI());
+                defaultLexicon = this.getClass().getClassLoader().getResource("simplenlg/lexicon/" + resourceName);
+                createLexicon(defaultLexicon.toURI());
             }
 
         } catch (URISyntaxException ex) {
