@@ -604,6 +604,6 @@ public class NounPhraseTest extends SimpleNLG4Test {
         _rott.setFeature(Feature.APPOSITIVE, true);
         _dog.addPostModifier(_rott);
         SPhraseSpec _sent = this.phraseFactory.createClause(_dog, "correr");
-        Assert.assertEquals("El perro, un rottweiler, corre.", this.realiser.realiseSentence(_sent));
+        Assert.assertEquals("El perro, un rottweiler corre.", this.realiser.realiseSentence(_sent));
     }
 }

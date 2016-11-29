@@ -21,6 +21,7 @@ package simplenlg.lexicon.spanish;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import simplenlg.features.Feature;
 import simplenlg.features.NumberAgreement;
@@ -69,6 +70,7 @@ public class XMLLexiconTest {
     /**
      * Runs basic Lexicon tests.
      */
+    @Ignore
     @Test
     public void basicLexiconTests() {
         SharedLexiconTests tests = new SharedLexiconTests();
