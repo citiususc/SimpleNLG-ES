@@ -219,6 +219,10 @@ class VerbPhraseHelper extends simplenlg.syntax.VerbPhraseHelper {
                 || modalPast) {
             frontVG = addHave(frontVG, vgComponents, modal, tenseValue);
         }
+        if (frontVG != null) {
+            frontVG.setFeature(Feature.NUMBER, determineNumber(phrase.getParent(), phrase));
+            frontVG.setFeature(LexicalFeature.GENDER, determineGender(phrase.getParent(), phrase));
+        }
 
         frontVG = pushIfModal(actualModal != null, phrase, frontVG, vgComponents);
         pushModal(actualModal, phrase, vgComponents);
