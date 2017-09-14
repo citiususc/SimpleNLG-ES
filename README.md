@@ -3,9 +3,9 @@ SimpleNLG-ES
 
 SimpleNLG-ES es una adaptación bilingüe inglés / español de SimpleNLG v4.4.8.
 
-SimpleNLG es una API de Java diseñada para facilitar la generación de textos en lenguaje natural. Originalmente fue desarrollada en el Departamento de Computing Science de la University of Aberdeen.
+SimpleNLG-ES es una API de Java diseñada para facilitar la generación de textos en lenguaje natural en español. Originalmente fue desarrollada en el Departamento de Computing Science de la University of Aberdeen.
 
-SimpleNLG está diseñado para facilitar las tareas de realización lingüística en los sistemas de generación de lenguaje natural, y se ha utilizado con éxito en múltiples proyectos.
+SimpleNLG-ES está diseñado para facilitar las tareas de realización lingüística en los sistemas de generación de lenguaje natural en español y actualmente se utiliza en tres proyectos diferentes para el desarrollo de sistemas de data2text en los dominios de aplicación de información meteorológica, datos estadísticos y de business intelligence.
 
 Para empezar
 ------------
