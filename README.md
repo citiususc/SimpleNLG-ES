@@ -22,7 +22,7 @@ Esta librería fue presentada en la "[10th International Conference on Natural L
 > Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017). ACL Anthology (aclweb.org/anthology/siggen.html), Septiembre 2017.
 
 ```
- @inproceedings{Ramos-Soto2017INLG,
+@inproceedings{Ramos-Soto2017INLG,
 author = {Ramos-Soto, Alejandro and Janeiro, Julio and Bugarin, Alberto},
 booktitle = {Proceedings of the 10th International Conference on Natural Language Generation (INLG2017)},
 month = sep,
