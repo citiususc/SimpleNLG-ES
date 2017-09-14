@@ -1,43 +1,48 @@
-[![Build Status](https://travis-ci.org/simplenlg/simplenlg.svg?branch=master)](https://travis-ci.org/simplenlg/simplenlg)
-
-
-SimpleNLG
+SimpleNLG-ES
 =========
 
-SimpleNLG is a simple Java API designed to facilitate the generation of Natural Language. It was originally developed at the [University of Aberdeen's Department of Computing Science](http://www.abdn.ac.uk/ncs/departments/computing-science/index.php). The [discussion list for SimpleNLG is on Google Groups](https://groups.google.com/forum/#!forum/simplenlg).
+SimpleNLG-ES es una adaptación bilingüe inglés / español de SimpleNLG v4.4.8.
 
-SimpleNLG is intended to function as a "[realisation engine](http://en.wikipedia.org/wiki/Realization_(linguistics))" for [Natural Language Generation](http://en.wikipedia.org/wiki/Natural_language_generation) architectures, and has been used successfully in a number of projects, both academic and commercial. It handles the following:
+SimpleNLG es una API de Java diseñada para facilitar la generación de textos en lenguaje natural. Originalmente fue desarrollada en el Departamento de Computing Science de la University of Aberdeen.
 
-* Lexicon/morphology system: The default lexicon computes inflected forms (morphological realisation). We believe this has fair coverage. Better coverage can be obtained by using the [NIH Specialist Lexicon](http://lexsrv3.nlm.nih.gov/LexSysGroup/Projects/lexicon/current/web/) (which is supported by SimpleNLG).
-* Realiser: Generates texts from a syntactic form. Grammatical coverage is limited compared to tools such as [KPML](http://www.fb10.uni-bremen.de/anglistik/langpro/kpml/README.html) and [FUF/SURGE](http://www.cs.bgu.ac.il/surge/index.html), but we believe it is adequate for many NLG tasks.
-* Microplanning: Currently just simple aggregation, hopefully will grow over time.
+SimpleNLG está diseñado para facilitar las tareas de realización lingüística en los sistemas de generación de lenguaje natural, y se ha utilizado con éxito en múltiples proyectos.
 
-Current release (English)
--------------------------
-The current release of SimpleNLG is V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). The "official" version of SimpleNLG only produces texts in English. However, versions for other languages are under development, see the Papers and Publications page and [SimpleNLG discussion list](https://groups.google.com/forum/#!forum/simplenlg) for details.
+Para empezar
+------------
+Para obtener información sobre cómo usar SimpleNLG-es, consulta la Wiki y la API.
 
-Please note that earlier versions of SimpleNLG have different licensing, in particular versions before V4.0 cannot be used commercially.
+Licencia SimpleNLG-ES
+-----------------------------
+SimpleNLG-es está licenciado bajo los términos y condiciones de la [Mozilla Public Licence (MPL)](http://www.mozilla.org/MPL/).
 
-Getting started
----------------
-For information on how to use SimpleNLG, please see the [tutorial](https://github.com/simplenlg/simplenlg/wiki/Section-0-–-SimpleNLG-Tutorial) and [API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html).
+Cita
+----
+Esta librería fue presentada en la "[10th International Conference on Natural Language Generation (INLG2017)](https://eventos.citius.usc.es/inlg2017)", celebrada en Santiago de Compostela. Si utilizas SimpleNLG-ES en algún proyecto, agradecemos que cites el trabajo donde se describe:
 
-If you have a technical question about using SimpleNLG, please check the SimpleNLG discussion list.
+> Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017). ACL Anthology (aclweb.org/anthology/siggen.html), Septiembre 2017.
 
-If you wish to be informed about SimpleNLG updates and events, please subscribe to the SimpleNLG announcement list.
+```
+ @inproceedings{Ramos-Soto2017INLG,
+author = {Ramos-Soto, Alejandro and Janeiro, Julio and Bugarin, Alberto},
+booktitle = {Proceedings of the 10th International Conference on Natural Language Generation (INLG2017)},
+month = sep,
+title = {{Adapting SimpleNLG to Spanish}},
+address = "Santiago de Compostela",
+year = {2017} } 
+```
 
-If you wish to cite SimpleNLG in an academic publication, please cite the following paper:
+SimpleNLG (Inglés)
+------------------
+La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). Esta versión de SimpleNLG sólo produce textos en inglés. Sin embargo, versiones para otros idiomas están en desarrollo, visita la página Papers and Publications y la lista de discusión de SimpleNLG (https://groups.google.com/forum/#!forum/simplenlg) para más detalles.
+
+Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente documento:
 
 * A Gatt and E Reiter (2009). [SimpleNLG: A realisation engine for practical applications](http://aclweb.org/anthology/W/W09/W09-0613.pdf). Proceedings of ENLG-2009
 
-If you have other questions about SimpleNLG, please contact Ehud Reiter (University of Aberdeen); you can find his email via Google.
+Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con Ehud Reiter (Universidad de Aberdeen); Puedes encontrar su correo electrónico a través de Google.
 
-SimpleNLG for other languages
+SimpleNLG en otros idiomas
 -----------------------------
-A version of SimpleNLG has now been developed for *French* by *Pierre-Luc Vaudry* at the Université de Montreal. This is a development based on the version 4 architecture. It is current being distributed separately from [this page](http://www-etud.iro.umontreal.ca/~vaudrypl/snlgbil/snlgEnFr_english.html).
+Una versión de SimpleNLG ha sido desarrollada para *Francés* por *Pierre-Luc Vaudry* en la Université de Montreal. Se trata de un desarrollo basado en la arquitectura de la versión 4. Se distribuye por separado en [esta página](http://www-etud.iro.umontreal.ca/~vaudrypl/snlgbil/snlgEnFr_english.html).
 
-*Marcel Bollman* has been working on an adaptation of SimpleNLG version 3 to German. This is available from [this page](http://www.linguistics.rub.de/~bollmann/simplenlg-ger.html). Please remember that SimpleNLG version 3 is not licensed for commercial use
-
-SimpleNLG License 
------------------------------
-SimpleNLG is licensed under the terms and conditions of the [Mozilla Public Licence (MPL)](http://www.mozilla.org/MPL/).
+*Marcel Bollman* ha estado trabajando en una adaptación de SimpleNLG versión 3 al alemán. Esto está disponible en [esta página](http://www.linguistics.rub.de/~bollmann/simplenlg-ger.html). Recuerda que SimpleNLG versión 3 no tiene licencia para uso comercial.
