@@ -19,7 +19,7 @@ Cita
 ----
 Esta librería fue presentada en la "[10th International Conference on Natural Language Generation (INLG2017)](https://eventos.citius.usc.es/inlg2017)", celebrada en Santiago de Compostela. Si utilizas SimpleNLG-ES en algún proyecto, agradecemos que cites el trabajo donde se describe:
 
-> Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017). ACL Anthology (aclweb.org/anthology/siggen.html), Septiembre 2017.
+> Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017), 4-7 Septiembre 2017.
 
 ```
 @inproceedings{Ramos-Soto2017INLG,
