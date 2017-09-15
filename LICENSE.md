@@ -1,9 +1,9 @@
-SimpleNLG License
+SimpleNLG-ES License
 =================
 
-SimpleNLG is licensed under the terms and conditions of Mozilla Public License 1.1. 
+SimpleNLG-ES is licensed under the terms and conditions of Mozilla Public License 1.1. 
 
-Copyright (C) 2010-11 [The University of Aberdeen] (http://www.abdn.ac.uk).
+Copyright (C) 2016-17 [Universidade de Santiago de Compostela] (http://citius.usc.es).
 
 
 MOZILLA PUBLIC LICENSE  Version 1.1
