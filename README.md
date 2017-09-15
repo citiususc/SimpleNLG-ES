@@ -39,7 +39,7 @@ Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente d
 
 * A Gatt and E Reiter (2009). [SimpleNLG: A realisation engine for practical applications](http://aclweb.org/anthology/W/W09/W09-0613.pdf). Proceedings of ENLG-2009
 
-Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (Universidad de Aberdeen)](https://www.abdn.ac.uk/ncs/profiles/e.reiter/); Puedes encontrar su correo electrónico a través de Google.
+Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (Universidad de Aberdeen)](https://www.abdn.ac.uk/ncs/profiles/e.reiter/).
 
 SimpleNLG en otros idiomas
 -----------------------------
