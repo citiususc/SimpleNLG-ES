@@ -22,13 +22,13 @@ Esta librería fue presentada en la "[10th International Conference on Natural L
 > Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017), 4-7 Septiembre 2017.
 
 ```
-@inproceedings{Ramos-Soto2017INLG,
-author = {Ramos-Soto, Alejandro and Janeiro, Julio and Bugarin, Alberto},
-booktitle = {Proceedings of the 10th International Conference on Natural Language Generation (INLG2017)},
-month = sep,
-title = {{Adapting SimpleNLG to Spanish}},
-address = "Santiago de Compostela",
-year = {2017} } 
+@inproceedings{aramossoto2017adapting,
+	title = {Adapting {SimpleNLG} to Spanish},
+	journal = {10th International Conference on Natural Language Generation},
+	year = {2017},
+	abstract = {We describe SimpleNLG-ES, an adaptation of the SimpleNLG realization library for the Spanish language. Our implementation is based on the bilingual English-French SimpleNLG-EnFr adaptation. The library has been tested using a battery of examples that ensure that the most common syntax, morphology and orthography rules for Spanish are met. The library is currently being used in three different projects for the development of data-to-text systems in the meteorological, statistical data information, and business intelligence application domains.},
+	author = {A. Ramos-Soto and J. Janeiro-Gallardo and Alberto Bugar\'{i}n}
+}  
 ```
 
 SimpleNLG (Inglés)
