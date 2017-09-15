@@ -9,7 +9,7 @@ SimpleNLG-ES está diseñado para facilitar las tareas de realización lingüís
 
 Para empezar
 ------------
-Para obtener información sobre cómo usar SimpleNLG-es, consulta la Wiki y la API.
+Para obtener información sobre cómo usar SimpleNLG-ES, consulta la Wiki y la API.
 
 Licencia SimpleNLG-ES
 -----------------------------
@@ -33,7 +33,7 @@ Esta librería fue presentada en la "[10th International Conference on Natural L
 
 SimpleNLG (Inglés)
 ------------------
-La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). Esta versión de SimpleNLG sólo produce textos en inglés. Sin embargo, versiones para otros idiomas están en desarrollo, visita la página Papers and Publications y la lista de discusión de SimpleNLG (https://groups.google.com/forum/#!forum/simplenlg) para más detalles.
+La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). Esta versión de SimpleNLG sólo produce textos en inglés. Sin embargo, versiones para otros idiomas están en desarrollo, visita la página Papers and Publications y la [lista de discusión de SimpleNLG] (https://groups.google.com/forum/#!forum/simplenlg) para más detalles.
 
 Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente documento:
 
