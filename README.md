@@ -1,7 +1,7 @@
 SimpleNLG-ES
 =========
 
-SimpleNLG-ES es una API de Java diseñada para facilitar la generación de textos en lenguaje natural en español. Es una adaptación bilingüe inglés / español de la librería SimpleNLG v4.4.8, originalmente desarrollada en el [Departament of Computing Science de la University of Aberdeen](https://www.abdn.ac.uk/ncs/departments/computing-science/natural-language-generation-187.php), para el idioma inglés.
+SimpleNLG-ES es una API de Java diseñada para facilitar la generación de textos en lenguaje natural en español. Es una adaptación bilingüe inglés / español de la librería SimpleNLG v4.4.8 siguiendo la estructura utilizada en SimpleNLG-EnFr. SimpleNLG fue desarrollada originalmente en el [Departament of Computing Science de la University of Aberdeen](https://www.abdn.ac.uk/ncs/departments/computing-science/natural-language-generation-187.php), para el idioma inglés.
 
 SimpleNLG-ES está diseñada para facilitar las tareas de realización lingüística en los sistemas de generación de lenguaje natural en español.
 
@@ -11,7 +11,7 @@ Para obtener información sobre cómo usar SimpleNLG-ES, consulta la Wiki y la A
 
 Licencia SimpleNLG-ES
 -----------------------------
-Al estar basada en SimpleNLG, SimpleNLG-ES está licenciada bajo los términos y condiciones de la [Mozilla Public Licence (MPL) Version 1.1](http://www.mozilla.org/MPL/).
+Al estar basada en SimpleNLG y SimpleNLG-EnFr, SimpleNLG-ES está licenciada bajo los términos y condiciones de la [Mozilla Public Licence (MPL) Version 1.1](http://www.mozilla.org/MPL/).
 
 Cita
 ----
@@ -29,7 +29,7 @@ La librería SimpleNLG-ES fue presentada en la "[10th International Conference o
 }  
 ```
 
-SimpleNLG (Inglés)
+SimpleNLG
 ------------------
 La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). Esta versión de SimpleNLG produce únicamente textos en inglés. Sin embargo, hay en desarrollo versiones para otros idiomas, visita la página Papers and Publications y la [lista de discusión de SimpleNLG] (https://groups.google.com/forum/#!forum/simplenlg) para más detalles.
 
@@ -39,8 +39,6 @@ Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente d
 
 Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (Universidad de Aberdeen)](https://www.abdn.ac.uk/ncs/profiles/e.reiter/).
 
-SimpleNLG en otros idiomas
+SimpleNLG-EnFr
 -----------------------------
-Se ha desarrollado una versión de SimpleNLG para *Francés* por *Pierre-Luc Vaudry* en la Université de Montreal. Se trata de un desarrollo basado en la arquitectura de la versión 4. Se distribuye por separado en [esta página](http://www-etud.iro.umontreal.ca/~vaudrypl/snlgbil/snlgEnFr_english.html).
-
-*Marcel Bollman* ha estado trabajando en una adaptación de SimpleNLG versión 3 al alemán. Esto está disponible en [esta página](http://www.linguistics.rub.de/~bollmann/simplenlg-ger.html). Recuerda que SimpleNLG versión 3 no tiene licencia para uso comercial.
+SimpleNLG-EnFr puede producir textos en inglés y francés en el mismo documento. La parte francesa cubre prácticamente toda la gramática en [Le français fondamental (1er degré)](http://fr.wikipedia.org/wiki/Fran%C3%A7ais_fondamental) y tiene un lexicón de 3871 entradas que cubre la [escala ortográfica Dubois Buyse](http://o.bacquet.free.fr/db2.htm).
