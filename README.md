@@ -32,7 +32,7 @@ La librería SimpleNLG-ES fue presentada en la "[10th International Conference o
 
 SimpleNLG
 ------------------
-La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). Esta versión de SimpleNLG produce únicamente textos en inglés. Sin embargo, hay en desarrollo versiones para otros idiomas, visita la página Papers and Publications y la [lista de discusión de SimpleNLG] (https://groups.google.com/forum/#!forum/simplenlg) para más detalles.
+La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenlg/simplenlg/master/docs/javadoc/index.html)). Para mayor información, vistita su [página de Github](https://github.com/simplenlg/simplenlg) o la [lista de discusión de SimpleNLG] (https://groups.google.com/forum/#!forum/simplenlg) para más detalles.
 
 Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente documento:
 
