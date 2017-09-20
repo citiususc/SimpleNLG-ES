@@ -36,21 +36,7 @@ La versión actual de SimpleNLG es V4.4.8 ([API](https://cdn.rawgit.com/simplenl
 
 Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente documento:
 
-* A Gatt and E Reiter (2009). [SimpleNLG: A realisation engine for practical applications](http://aclweb.org/anthology/W/W09/W09-0613.pdf). Proceedings of the 12th European Workshop on Natural Language Generation (ENLG2009), 90-93.
-
-```
-@InProceedings{gatt-reiter:2009:ENLG,
-  author    = {Gatt, Albert  and  Reiter, Ehud},
-  title     = {{SimpleNLG}: A Realisation Engine for Practical Applications},
-  booktitle = {Proceedings of the 12th European Workshop on Natural Language Generation (ENLG 2009)},
-  month     = {March},
-  year      = {2009},
-  address   = {Athens, Greece},
-  publisher = {Association for Computational Linguistics},
-  pages     = {90--93},
-  url       = {http://www.aclweb.org/anthology/W09-0613}
-}
-```
+* A Gatt and E Reiter (2009). [SimpleNLG: A realisation engine for practical applications](http://aclweb.org/anthology/W/W09/W09-0613.pdf). [Proceedings of the 12th European Workshop on Natural Language Generation (ENLG2009)](http://aclweb.org/anthology/siggen.html#2009_0), 90-93.
 
 Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (Universidad de Aberdeen)](https://www.abdn.ac.uk/ncs/profiles/e.reiter/).
 
