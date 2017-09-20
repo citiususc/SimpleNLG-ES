@@ -42,4 +42,4 @@ Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (U
 
 SimpleNLG-EnFr
 -----------------------------
-La versión actual de SimpleNLG-EnFr es V1.1. SimpleNLG-EnFr puede producir textos en inglés y francés en el mismo documento. La parte francesa cubre prácticamente toda la gramática en [Le français fondamental (1er degré)](http://fr.wikipedia.org/wiki/Fran%C3%A7ais_fondamental) y tiene un lexicón de 3871 entradas que cubre la [escala ortográfica Dubois Buyse](http://o.bacquet.free.fr/db2.htm). Para mayor información, visita su [página de GitHub](https://github.com/rali-udem/SimpleNLG-EnFr).
+La versión actual de SimpleNLG-EnFr es V1.1. SimpleNLG-EnFr puede producir textos en inglés y francés en el mismo documento. La parte francesa cubre prácticamente toda la gramática recogida en [Le français fondamental (1er degré)](http://fr.wikipedia.org/wiki/Fran%C3%A7ais_fondamental) e incluye un lexicón con 3871 entradas que cubre la [escala ortográfica Dubois Buyse](http://o.bacquet.free.fr/db2.htm). Para mayor información, visita su [página de GitHub](https://github.com/rali-udem/SimpleNLG-EnFr).
