@@ -1,9 +1,9 @@
 SimpleNLG-ES
 =========
 
-SimpleNLG-ES es una API de Java diseñada para facilitar la generación de textos en lenguaje natural en español. Es una adaptación bilingüe inglés / español de la librería SimpleNLG v4.4.8 siguiendo la estructura utilizada en SimpleNLG-EnFr. SimpleNLG fue desarrollada originalmente en el [Department of Computing Science de la University of Aberdeen](https://www.abdn.ac.uk/ncs/departments/computing-science/natural-language-generation-187.php), para el idioma inglés.
+SimpleNLG-ES es una API de Java diseñada para facilitar la generación de textos en lenguaje natural en español. Es una adaptación bilingüe inglés / español de la librería SimpleNLG v4.4.8, siguiendo la estructura utilizada en SimpleNLG-EnFr. La librería SimpleNLG original fue desarrollada para el idioma inglés en el [Department of Computing Science de la University of Aberdeen](https://www.abdn.ac.uk/ncs/departments/computing-science/natural-language-generation-187.php). SimpleNLG-EnFr es su adaptación bilingüe Inglés-Francés, desarrollada en la [Université de Montreal](http://www-etud.iro.umontreal.ca/~vaudrypl/snlgbil/snlgEnFr_francais.xhtml).
 
-SimpleNLG-ES está diseñada para facilitar las tareas de realización lingüística en los sistemas de generación de lenguaje natural en español.
+SimpleNLG-ES está diseñada para facilitar las tareas de realización lingüística en español en los sistemas de generación de lenguaje natural.
 
 Para empezar
 ------------
@@ -12,6 +12,7 @@ Para obtener información sobre cómo usar SimpleNLG-ES, consulta la Wiki y la A
 Licencia SimpleNLG-ES
 -----------------------------
 Al estar basada en SimpleNLG y SimpleNLG-EnFr, SimpleNLG-ES está licenciada bajo los términos y condiciones de la [Mozilla Public Licence (MPL) Version 1.1](http://www.mozilla.org/MPL/).
+
 
 Cita
 ----
@@ -41,4 +42,5 @@ Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (U
 
 SimpleNLG-EnFr
 -----------------------------
+La versión actual de SimpleNLG-EnFr es V1.1. Para mayor información, visita su [página de GitHub](https://github.com/rali-udem/SimpleNLG-EnFr).
 SimpleNLG-EnFr puede producir textos en inglés y francés en el mismo documento. La parte francesa cubre prácticamente toda la gramática en [Le français fondamental (1er degré)](http://fr.wikipedia.org/wiki/Fran%C3%A7ais_fondamental) y tiene un lexicón de 3871 entradas que cubre la [escala ortográfica Dubois Buyse](http://o.bacquet.free.fr/db2.htm).
