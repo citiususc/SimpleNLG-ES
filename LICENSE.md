@@ -1,9 +1,9 @@
 SimpleNLG-ES License
 =================
 
-SimpleNLG-ES is licensed under the terms and conditions of Mozilla Public License 1.1.
+SimpleNLG-ES is licensed under the terms and conditions of [Mozilla Public License 1.1](https://www.mozilla.org/en-US/MPL/1.1/).
 
-The spanish lexicon used by SimpleNLG-ES is licensed under the GNU Affero General Public License.
+The spanish lexicon used by SimpleNLG-ES is licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html).
 
 Copyright (C) 2016-17 [Universidade de Santiago de Compostela] (http://citius.usc.es).
 
