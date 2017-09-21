@@ -13,6 +13,8 @@ Licencia SimpleNLG-ES
 -----------------------------
 Al estar basada en SimpleNLG y SimpleNLG-EnFr, SimpleNLG-ES está licenciada bajo los términos y condiciones de la [Mozilla Public Licence (MPL) Version 1.1](http://www.mozilla.org/MPL/).
 
+El lexicón utilizado en SimpleNLG-es está generado a partir del dicionario de [FreeLing](http://nlp.lsi.upc.edu/freeling/) que está licenciado bajo [Affero GPL](http://www.gnu.org/licenses/agpl.html), por lo que si se quiere utilizar SimpleNLG-ES en software propietario se debe generar un nuevo lexicón adaptado al dominio.
+
 
 Cita
 ----
