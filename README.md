@@ -11,25 +11,28 @@ Para obtener información sobre cómo usar SimpleNLG-ES, consulta la Wiki y la A
 
 Licencia SimpleNLG-ES
 -----------------------------
-Al estar basada en SimpleNLG y SimpleNLG-EnFr, SimpleNLG-ES está licenciada bajo los términos y condiciones de la [Mozilla Public Licence (MPL) Version 1.1](http://www.mozilla.org/MPL/).
+Al estar basada en SimpleNLG y SimpleNLG-EnFr, SimpleNLG-ES está licenciada bajo los términos y condiciones de la [Mozilla Public License (MPL) Version 1.1](https://www.mozilla.org/en-US/MPL/1.1/).
 
-El lexicón utilizado en SimpleNLG-es está generado a partir del dicionario de [FreeLing](http://nlp.lsi.upc.edu/freeling/) que está licenciado bajo [Affero GPL](http://www.gnu.org/licenses/agpl.html), por lo que si se quiere utilizar SimpleNLG-ES en software propietario se debe generar un nuevo lexicón adaptado al dominio.
+El lexicón utilizado en SimpleNLG-ES está generado a partir del diccionario de [FreeLing](http://nlp.lsi.upc.edu/freeling/) que está licenciado bajo los términos y condiciones de la [GNU Affero General Public License](http://www.gnu.org/licenses/agpl.html).
 
 
 Cita
 ----
-La librería SimpleNLG-ES fue presentada en la "[10th International Conference on Natural Language Generation (INLG2017)](https://eventos.citius.usc.es/inlg2017)", celebrada en Santiago de Compostela. Si utilizas SimpleNLG-ES en algún proyecto, agradecemos que cites el trabajo donde se describe:
+La librería SimpleNLG-ES fue presentada en la "[10th International Conference on Natural Language Generation (INLG2017)](https://eventos.citius.usc.es/inlg2017)", celebrada en Santiago de Compostela (4-7 septiembre 2017). Si utilizas SimpleNLG-ES en algún proyecto, agradecemos que cites el trabajo donde se describe:
 
-> Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017), 4-7 Septiembre 2017.
+> Alejandro Ramos-Soto, Julio Janeiro y Alberto Bugarín, "[Adapting SimpleNLG to Spanish](https://eventos.citius.usc.es/inlg2017/resources/final/51/51_Paper.pdf)". Proceedings of the 10th International Conference on Natural Language Generation (INLG2017), 142-146. ISBN: 978-1-945626-52-4.
 
 ```
 @inproceedings{aramossoto2017adapting,
 	title = {Adapting {SimpleNLG} to Spanish},
 	journal = {10th International Conference on Natural Language Generation},
 	year = {2017},
+	pages = {142-146},
 	abstract = {We describe SimpleNLG-ES, an adaptation of the SimpleNLG realization library for the Spanish language. Our implementation is based on the bilingual English-French SimpleNLG-EnFr adaptation. The library has been tested using a battery of examples that ensure that the most common syntax, morphology and orthography rules for Spanish are met. The library is currently being used in three different projects for the development of data-to-text systems in the meteorological, statistical data information, and business intelligence application domains.},
+	isbn = {978-1-945626-52-4},
+	publisher = {Association for Computational Linguistics},
 	author = {A. Ramos-Soto and J. Janeiro-Gallardo and Alberto Bugar\'{i}n}
-}  
+}
 ```
 
 SimpleNLG
@@ -40,7 +43,7 @@ Si deseas citar SimpleNLG en una publicación académica, utiliza el siguiente d
 
 * A Gatt and E Reiter (2009). [SimpleNLG: A realisation engine for practical applications](http://aclweb.org/anthology/W/W09/W09-0613.pdf). [Proceedings of the 12th European Workshop on Natural Language Generation (ENLG2009)](http://aclweb.org/anthology/siggen.html#2009_0), 90-93.
 
-Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (Universidad de Aberdeen)](https://www.abdn.ac.uk/ncs/profiles/e.reiter/).
+Si tienes otras preguntas sobre SimpleNLG, ponte en contacto con [Ehud Reiter (The University of Aberdeen)](https://www.abdn.ac.uk/ncs/profiles/e.reiter/).
 
 SimpleNLG-EnFr
 -----------------------------
