@@ -14,12 +14,9 @@
  * The Initial Developer of the Original Code is Ehud Reiter, Albert Gatt and Dave Westwater.
  * Portions created by Ehud Reiter, Albert Gatt and Dave Westwater are Copyright (C) 2010-11 The University of Aberdeen. All Rights Reserved.
  *
- * Contributor(s): Ehud Reiter, Albert Gatt, Dave Wewstwater, Roman Kutlak, Margaret Mitchell.
+ * Contributor(s): Ehud Reiter, Albert Gatt, Dave Wewstwater, Roman Kutlak, Margaret Mitchell, Pierre-Luc Vaudry, Julio Janeiro, Alejandro Ramos, Alberto Bugarín.
  */
 package simplenlg.aggregation;
-
-import java.util.Arrays;
-import java.util.List;
 
 import simplenlg.features.DiscourseFunction;
 import simplenlg.features.Feature;
@@ -27,6 +24,9 @@ import simplenlg.features.InternalFeature;
 import simplenlg.framework.ElementCategory;
 import simplenlg.framework.ListElement;
 import simplenlg.framework.NLGElement;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class FunctionalSet {
 
