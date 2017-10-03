@@ -26,7 +26,7 @@ La librería SimpleNLG-ES fue presentada en la "[10th International Conference o
 	title = {Adapting {SimpleNLG} to Spanish},
 	journal = {10th International Conference on Natural Language Generation},
 	year = {2017},
-	pages = {142-146},
+	pages = {144-148},
 	abstract = {We describe SimpleNLG-ES, an adaptation of the SimpleNLG realization library for the Spanish language. Our implementation is based on the bilingual English-French SimpleNLG-EnFr adaptation. The library has been tested using a battery of examples that ensure that the most common syntax, morphology and orthography rules for Spanish are met. The library is currently being used in three different projects for the development of data-to-text systems in the meteorological, statistical data information, and business intelligence application domains.},
 	isbn = {978-1-945626-52-4},
 	publisher = {Association for Computational Linguistics},
