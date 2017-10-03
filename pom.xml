@@ -5,7 +5,7 @@
 
     <groupId>es.usc.citius</groupId>
     <artifactId>SimpleNLG-es</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 	
   	<name>SimpleNLG</name>
@@ -77,39 +77,6 @@
   	
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-			    <executions>
-			    	<execution>
-						<id>unzip</id>
-			        	<phase>process-test-resources</phase>
-			            <configuration>
-			            	<tasks>
-								<echo message="***** Unziping NIH Lexicon..."/>
-								<unzip src="${basedir}/src/test/resources/NIHLexicon/lexAccess2011.data.zip" dest="${basedir}/src/test/resources/NIHLexicon/" overwrite="true"/>
-			                    </tasks>
-			                </configuration>
-				            <goals>
-				            	<goal>run</goal>
-				            </goals>
-			            </execution>
-				    	<execution>
-							<id>delete</id>
-				        	<phase>clean</phase>
-				            <configuration>
-				            	<tasks>
-									<echo message="***** Deleting NIH Lexicon..."/>
-									<delete file="${basedir}/src/test/resources/NIHLexicon/lexAccess2011.data"/>
-				                    </tasks>
-				                </configuration>
-					            <goals>
-					            	<goal>run</goal>
-					            </goals>
-				            </execution>
-			        </executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
